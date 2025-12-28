@@ -43,8 +43,8 @@ export default function TastingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 p-4 md:p-8">
-      <div className="max-w-2xl mx-auto">
+    <main className="flex-1 flex items-center justify-center p-4 md:p-8" style={{ backgroundColor: "rgb(31, 31, 31)" }}>
+      <div className="w-full max-w-2xl">
         {/* 进度指示 */}
         <div className="flex justify-between mb-6">
           {STEPS.map((step, index) => (
@@ -58,16 +58,16 @@ export default function TastingPage() {
         </div>
 
         {/* 步骤标题 */}
-        <h1 className="text-2xl font-bold text-amber-900 mb-6 text-center">
+        <h1 className="text-2xl font-bold text-amber-400 mb-6 text-center">
           {STEPS[currentStep].title}
         </h1>
 
-        <Card className="p-6">
+        <Card className="p-6 bg-neutral-800 border-neutral-700">
           {/* 步骤 0: 啤酒信息 */}
           {currentStep === 0 && (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
                   啤酒名称
                 </label>
                 <input
@@ -76,12 +76,12 @@ export default function TastingPage() {
                   onChange={(e) =>
                     setBeerInfo({ ...beerInfo, name: e.target.value })
                   }
-                  className="w-full p-3 border rounded-lg"
+                  className="w-full p-3 border border-neutral-600 rounded-lg bg-neutral-700 text-white placeholder-gray-400"
                   placeholder="输入啤酒名称"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
                   啤酒风格
                 </label>
                 <input
@@ -90,12 +90,12 @@ export default function TastingPage() {
                   onChange={(e) =>
                     setBeerInfo({ ...beerInfo, style: e.target.value })
                   }
-                  className="w-full p-3 border rounded-lg"
+                  className="w-full p-3 border border-neutral-600 rounded-lg bg-neutral-700 text-white placeholder-gray-400"
                   placeholder="如 IPA、Stout、Lager"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
                   酒厂
                 </label>
                 <input
@@ -104,7 +104,7 @@ export default function TastingPage() {
                   onChange={(e) =>
                     setBeerInfo({ ...beerInfo, brewery: e.target.value })
                   }
-                  className="w-full p-3 border rounded-lg"
+                  className="w-full p-3 border border-neutral-600 rounded-lg bg-neutral-700 text-white placeholder-gray-400"
                   placeholder="输入酒厂名称"
                 />
               </div>
@@ -305,8 +305,8 @@ function ScoreSlider({
   return (
     <div>
       <div className="flex justify-between mb-2">
-        <span className="text-sm font-medium text-gray-700">{label}</span>
-        <span className="text-sm font-bold text-amber-600">{value}</span>
+        <span className="text-sm font-medium text-gray-300">{label}</span>
+        <span className="text-sm font-bold text-amber-400">{value}</span>
       </div>
       <Slider
         value={[value]}
@@ -316,7 +316,7 @@ function ScoreSlider({
         step={1}
         className="w-full"
       />
-      <div className="flex justify-between text-xs text-gray-400 mt-1">
+      <div className="flex justify-between text-xs text-gray-500 mt-1">
         <span>1</span>
         <span>2</span>
         <span>3</span>

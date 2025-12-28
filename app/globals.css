@@ -1,6 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Background Color */
+:root {
+  --bg-main: rgb(31, 31, 31);
+  --bg-navbar: rgb(24, 24, 24);
+  --bg-footer: rgb(24, 24, 24);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

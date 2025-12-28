@@ -53,32 +53,32 @@ export default function ResultPage() {
   const level = getScoreLevel(Number(totalScore));
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 p-4 md:p-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold text-amber-900 mb-6 text-center">
+    <main className="flex-1 flex items-center justify-center p-4 md:p-8" style={{ backgroundColor: "rgb(31, 31, 31)" }}>
+      <div className="w-full max-w-2xl">
+        <h1 className="text-2xl font-bold text-amber-400 mb-6 text-center">
           品鉴报告
         </h1>
 
         {/* 啤酒信息 */}
-        <Card className="p-6 mb-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-2">
+        <Card className="p-6 mb-6 bg-neutral-800 border-neutral-700">
+          <h2 className="text-xl font-bold text-white mb-2">
             {beerInfo.name}
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-400">
             {beerInfo.style} · {beerInfo.brewery}
           </p>
         </Card>
 
         {/* 总分 */}
-        <Card className="p-6 mb-6 text-center">
-          <p className="text-gray-500 mb-2">综合评分</p>
+        <Card className="p-6 mb-6 text-center bg-neutral-800 border-neutral-700">
+          <p className="text-gray-400 mb-2">综合评分</p>
           <p className="text-5xl font-bold text-amber-600 mb-2">{totalScore}</p>
           <p className={`text-lg font-medium ${level.color}`}>{level.text}</p>
         </Card>
 
         {/* 雷达图 */}
-        <Card className="p-6 mb-6">
-          <h3 className="text-lg font-medium text-gray-700 mb-4 text-center">
+        <Card className="p-6 mb-6 bg-neutral-800 border-neutral-700">
+          <h3 className="text-lg font-medium text-gray-300 mb-4 text-center">
             风味分布
           </h3>
           <div className="h-64">
@@ -100,13 +100,13 @@ export default function ResultPage() {
         </Card>
 
         {/* 各项得分 */}
-        <Card className="p-6 mb-6">
-          <h3 className="text-lg font-medium text-gray-700 mb-4">详细得分</h3>
+        <Card className="p-6 mb-6 bg-neutral-800 border-neutral-700">
+          <h3 className="text-lg font-medium text-gray-300 mb-4">详细得分</h3>
           <div className="space-y-3">
             {radarData.map((item) => (
               <div key={item.subject} className="flex items-center">
-                <span className="w-16 text-gray-600">{item.subject}</span>
-                <div className="flex-1 h-2 bg-gray-200 rounded mx-3">
+                <span className="w-16 text-gray-400">{item.subject}</span>
+                <div className="flex-1 h-2 bg-neutral-600 rounded mx-3">
                   <div
                     className="h-2 bg-amber-500 rounded"
                     style={{ width: `${(item.value / 5) * 100}%` }}
