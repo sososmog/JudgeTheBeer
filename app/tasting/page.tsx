@@ -1,5 +1,6 @@
 "use client";
 
+import { ProgressBar } from "@/components/ProgressBar";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -46,16 +47,8 @@ export default function TastingPage() {
     <main className="flex-1 flex items-center justify-center p-4 md:p-8" style={{ backgroundColor: "rgb(31, 31, 31)" }}>
       <div className="w-full max-w-2xl">
         {/* 进度指示 */}
-        <div className="flex justify-between mb-6">
-          {STEPS.map((step, index) => (
-            <div
-              key={step.id}
-              className={`flex-1 h-2 mx-1 rounded ${
-                index <= currentStep ? "bg-amber-600" : "bg-amber-200"
-              }`}
-            />
-          ))}
-        </div>
+        {/* 进度条 */}
+        <ProgressBar currentStep={currentStep} totalSteps={STEPS.length} />
 
         {/* 步骤标题 */}
         <h1 className="text-2xl font-bold text-amber-400 mb-6 text-center">
