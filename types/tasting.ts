@@ -14,6 +14,15 @@ export interface TastingScore {
     hops: number;
     yeast: number;
     other: number;
+    fruity: number;
+    floral: number;
+    spicy: number;
+    oxidized: number;
+    skunky: number;
+    metallic: number;
+    cardboard: number;
+    vinegar: number;
+    sulfur: number;
   };
   taste: {
     sweet: number;
