@@ -2,7 +2,12 @@ export interface TastingScore {
   appearance: {
     color: number;
     clarity: number;
+    hasHopShit: boolean;
     head: number;
+    headColor: number;
+    headTexture: number;
+    headRetention: number;
+    viscosity: number;
   };
   aroma: {
     malt: number;
