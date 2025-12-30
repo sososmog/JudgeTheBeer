@@ -60,6 +60,9 @@ export default function TastingPage() {
   const [showTransition, setShowTransition] = useState(false);
   const [transitionIndex, setTransitionIndex] = useState(0);
   const [aromaSubPage, setAromaSubPage] = useState<"main" | "good" | "bad" | "good-malt" | "good-hop" | "good-fruit" | "good-floral" | "good-spice" | "good-yeast" | "good-roast" | "good-caramel" | "good-wood" | "good-other" | "bad-oxidized" | "bad-sulfur" | "bad-ferment" | "bad-microbial" | "bad-chemical" | "bad-other">("main");
+  const [aromaChecked, setAromaChecked] = useState<Record<string, boolean>>({});
+  const [aromaSubChecked, setAromaSubChecked] = useState<Record<string, boolean>>({});
+
 
   const updateScore = (
     category: keyof TastingScore,
@@ -659,6 +662,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -698,6 +705,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -727,6 +738,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -755,6 +770,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -782,6 +801,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -809,6 +832,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -829,6 +856,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -856,6 +887,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -876,6 +911,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -896,6 +935,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -916,6 +959,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="red"
                     onBack={() => setAromaSubPage("bad")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -943,6 +990,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="red"
                     onBack={() => setAromaSubPage("bad")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -963,6 +1014,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="red"
                     onBack={() => setAromaSubPage("bad")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -983,6 +1038,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="red"
                     onBack={() => setAromaSubPage("bad")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -1003,6 +1062,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="red"
                     onBack={() => setAromaSubPage("bad")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -1023,6 +1086,10 @@ export default function TastingPage() {
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="red"
                     onBack={() => setAromaSubPage("bad")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
                         label: "Lorem Ipsum A",
@@ -1216,6 +1283,10 @@ function AromaDetailPage({
   color,
   onBack,
   items,
+  checkedItems,
+  setCheckedItems,
+  subCheckedItems,
+  setSubCheckedItems,
 }: {
   title: string;
   description: string;
@@ -1226,8 +1297,11 @@ function AromaDetailPage({
     description: string;
     subItems: { label: string; key: string }[];
   }[];
+  checkedItems: Record<string, boolean>;
+  setCheckedItems: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+  subCheckedItems: Record<string, boolean>;
+  setSubCheckedItems: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
 }) {
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
 
   const toggleCheck = (key: string) => {
@@ -1236,6 +1310,10 @@ function AromaDetailPage({
     if (!checkedItems[key]) {
       setExpandedItems(prev => ({ ...prev, [key]: true }));
     }
+  };
+
+  const toggleSubCheck = (key: string) => {
+    setSubCheckedItems(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
   const toggleExpand = (key: string) => {
@@ -1318,6 +1396,8 @@ function AromaDetailPage({
                     >
                       <input
                         type="checkbox"
+                        checked={subCheckedItems[subItem.key] || false}
+                        onChange={() => toggleSubCheck(subItem.key)}
                         className={`w-4 h-4 rounded ${classes.checkbox}`}
                       />
                       {subItem.label}
