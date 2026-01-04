@@ -59,7 +59,7 @@ export default function TastingPage() {
   const [score, setScore] = useState<TastingScore>(INITIAL_SCORE);
   const [showTransition, setShowTransition] = useState(false);
   const [transitionIndex, setTransitionIndex] = useState(0);
-  const [aromaSubPage, setAromaSubPage] = useState<"main" | "good" | "bad" | "good-malt" | "good-hop" | "good-fruit" | "good-floral" | "good-spice" | "good-yeast" | "good-roast" | "good-caramel" | "good-wood" | "good-other" | "bad-oxidized" | "bad-sulfur" | "bad-ferment" | "bad-microbial" | "bad-chemical" | "bad-other">("main");
+  const [aromaSubPage, setAromaSubPage] = useState<"main" | "good" | "bad" | "good-fruit" | "good-floral" | "good-grass" | "good-spice" | "good-yeast" | "good-sweet" | "good-roast" | "good-aged" | "good-sour" | "good-other" | "bad-alcohol" | "bad-chemical" | "bad-sulfur" | "bad-thiol" | "bad-oxidized" | "bad-other">("main");
   const [aromaChecked, setAromaChecked] = useState<Record<string, boolean>>({});
   const [aromaSubChecked, setAromaSubChecked] = useState<Record<string, boolean>>({});
 
@@ -404,7 +404,7 @@ export default function TastingPage() {
                 {aromaSubPage === "main" && (
                   <div className="space-y-6">
                     <p className="text-center text-gray-400 mb-6">
-                      请选择你闻到的香气类型
+                      你闻到了什么？
                     </p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -452,67 +452,67 @@ export default function TastingPage() {
                     <p className="text-center text-gray-400 mb-4">选择香气类别进行详细评价</p>
 
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-                      {/* 麦芽香 */}
-                      <button
-                        onClick={() => setAromaSubPage("good-malt")}
-                        className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
-                      >
-                        <h4 className="font-bold text-green-400 mb-1">水果</h4>
-                        <p className="text-xs text-gray-400 mb-2">面包、饼干、谷物</p>
-                        <span className="text-xs text-green-500">点击查看 →</span>
-                      </button>
-
-                      {/* 酒花香 */}
-                      <button
-                        onClick={() => setAromaSubPage("good-hop")}
-                        className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
-                      >
-                        <h4 className="font-bold text-green-400 mb-1">花香</h4>
-                        <p className="text-xs text-gray-400 mb-2">松脂、草本、柑橘</p>
-                        <span className="text-xs text-green-500">点击查看 →</span>
-                      </button>
-
-                      {/* 果香 */}
+                      {/* 水果 good-fruit*/}
                       <button
                         onClick={() => setAromaSubPage("good-fruit")}
                         className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
                       >
-                        <h4 className="font-bold text-green-400 mb-1">草本</h4>
-                        <p className="text-xs text-gray-400 mb-2">苹果、柑橘、热带水果</p>
+                        <h4 className="font-bold text-green-400 mb-1">水果</h4>
+                        <p className="text-xs text-gray-400 mb-2">柑橘、热带水果、核果、浆果</p>
                         <span className="text-xs text-green-500">点击查看 →</span>
                       </button>
 
-                      {/* 花香 */}
+                      {/* 花香 good-floral*/}
                       <button
                         onClick={() => setAromaSubPage("good-floral")}
                         className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
                       >
-                        <h4 className="font-bold text-green-400 mb-1">香辛料</h4>
+                        <h4 className="font-bold text-green-400 mb-1">花香</h4>
                         <p className="text-xs text-gray-400 mb-2">玫瑰、茉莉、薰衣草</p>
                         <span className="text-xs text-green-500">点击查看 →</span>
                       </button>
 
-                      {/* 香料香 */}
+                      {/* 草本 good-grass*/}
+                      <button
+                        onClick={() => setAromaSubPage("good-grass")}
+                        className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
+                      >
+                        <h4 className="font-bold text-green-400 mb-1">草本</h4>
+                        <p className="text-xs text-gray-400 mb-2">青草、草药、茶叶、木质</p>
+                        <span className="text-xs text-green-500">点击查看 →</span>
+                      </button>
+
+                      {/* 香辛料 good-spice*/}
                       <button
                         onClick={() => setAromaSubPage("good-spice")}
                         className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
                       >
-                        <h4 className="font-bold text-green-400 mb-1">谷物及制品</h4>
-                        <p className="text-xs text-gray-400 mb-2">胡椒、丁香、肉桂</p>
+                        <h4 className="font-bold text-green-400 mb-1">香辛料</h4>
+                        <p className="text-xs text-gray-400 mb-2">胡椒、丁香、肉桂、肉豆蔻</p>
                         <span className="text-xs text-green-500">点击查看 →</span>
                       </button>
 
-                      {/* 酵母香 */}
+                      {/* 谷物及制品 good-yeast*/}
                       <button
                         onClick={() => setAromaSubPage("good-yeast")}
                         className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
                       >
-                        <h4 className="font-bold text-green-400 mb-1">甜香</h4>
-                        <p className="text-xs text-gray-400 mb-2">面包、酯类、酚类</p>
+                        <h4 className="font-bold text-green-400 mb-1">谷物及制品</h4>
+                        <p className="text-xs text-gray-400 mb-2">面包、麸质、酵母、发面</p>
                         <span className="text-xs text-green-500">点击查看 →</span>
                       </button>
 
-                      {/* 烘烤香 */}
+                      {/* 甜香 good-sweet*/}
+                      <button
+                        onClick={() => setAromaSubPage("good-sweet")}
+                        className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
+                      >
+                        <h4 className="font-bold text-green-400 mb-1">甜香</h4>
+                        <p className="text-xs text-gray-400 mb-2">蜂蜜、太妃糖、糖浆</p>
+                        <span className="text-xs text-green-500">点击查看 →</span>
+                      </button>
+
+                      {/* 焦香 good-roast*/}
                       <button
                         onClick={() => setAromaSubPage("good-roast")}
                         className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
@@ -522,33 +522,33 @@ export default function TastingPage() {
                         <span className="text-xs text-green-500">点击查看 →</span>
                       </button>
 
-                      {/* 焦糖香 */}
+                      {/* 陈化 good-aged*/}
                       <button
-                        onClick={() => setAromaSubPage("good-caramel")}
+                        onClick={() => setAromaSubPage("good-aged")}
                         className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
                       >
                         <h4 className="font-bold text-green-400 mb-1">陈化</h4>
-                        <p className="text-xs text-gray-400 mb-2">蜂蜜、太妃糖、糖浆</p>
+                        <p className="text-xs text-gray-400 mb-2">陈味、桶味</p>
                         <span className="text-xs text-green-500">点击查看 →</span>
                       </button>
 
-                      {/* 木质香 */}
+                      {/* 酸味 good-sour*/}
                       <button
-                        onClick={() => setAromaSubPage("good-wood")}
+                        onClick={() => setAromaSubPage("good-sour")}
                         className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
                       >
                         <h4 className="font-bold text-green-400 mb-1">酸味</h4>
-                        <p className="text-xs text-gray-400 mb-2">橡木、香草、椰子</p>
+                        <p className="text-xs text-gray-400 mb-2">乳酸、醋酸</p>
                         <span className="text-xs text-green-500">点击查看 →</span>
                       </button>
 
-                      {/* 其他好的香气 */}
+                      {/* 其他好的香气 good-other*/}
                       <button
                         onClick={() => setAromaSubPage("good-other")}
                         className="p-4 rounded-lg border border-green-600/50 bg-green-900/10 hover:bg-green-900/30 transition-all"
                       >
                         <h4 className="font-bold text-green-400 mb-1">其他</h4>
-                        <p className="text-xs text-gray-400 mb-2">蜂蜜、坚果、奶油</p>
+                        <p className="text-xs text-gray-400 mb-2">马厩、皮革、泥土</p>
                         <span className="text-xs text-green-500">点击查看 →</span>
                       </button>
                     </div>
@@ -582,63 +582,63 @@ export default function TastingPage() {
                     <p className="text-center text-gray-400 mb-4">选择异味类别进行详细评价</p>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      {/* 氧化味 */}
+                      {/* 酒精 bad-alcohol*/}
                       <button
-                        onClick={() => setAromaSubPage("bad-oxidized")}
+                        onClick={() => setAromaSubPage("bad-alcohol")}
                         className="p-4 rounded-lg border border-red-600/50 bg-red-900/10 hover:bg-red-900/30 transition-all"
                       >
                         <h4 className="font-bold text-red-400 mb-1">酒精</h4>
-                        <p className="text-xs text-gray-400 mb-2">纸板、陈旧、雪莉酒</p>
+                        <p className="text-xs text-gray-400 mb-2">乙醇刺激</p>
                         <span className="text-xs text-red-500">点击查看 →</span>
                       </button>
 
-                      {/* 硫化物 */}
-                      <button
-                        onClick={() => setAromaSubPage("bad-sulfur")}
-                        className="p-4 rounded-lg border border-red-600/50 bg-red-900/10 hover:bg-red-900/30 transition-all"
-                      >
-                        <h4 className="font-bold text-red-400 mb-1">有机溶剂</h4>
-                        <p className="text-xs text-gray-400 mb-2">指甲油、油漆</p>
-                        <span className="text-xs text-red-500">点击查看 →</span>
-                      </button>
-
-                      {/* 发酵异味 */}
-                      <button
-                        onClick={() => setAromaSubPage("bad-ferment")}
-                        className="p-4 rounded-lg border border-red-600/50 bg-red-900/10 hover:bg-red-900/30 transition-all"
-                      >
-                        <h4 className="font-bold text-red-400 mb-1">硫/磷/臭鸡蛋</h4>
-                        <p className="text-xs text-gray-400 mb-2">溶剂、指甲油、过熟水果</p>
-                        <span className="text-xs text-red-500">点击查看 →</span>
-                      </button>
-
-                      {/* 微生物污染 */}
-                      <button
-                        onClick={() => setAromaSubPage("bad-microbial")}
-                        className="p-4 rounded-lg border border-red-600/50 bg-red-900/10 hover:bg-red-900/30 transition-all"
-                      >
-                        <h4 className="font-bold text-red-400 mb-1">硫醇</h4>
-                        <p className="text-xs text-gray-400 mb-2">醋酸、马厩味、药味</p>
-                        <span className="text-xs text-red-500">点击查看 →</span>
-                      </button>
-
-                      {/* 化学异味 */}
+                      {/* 溶剂 bad-chemical*/}
                       <button
                         onClick={() => setAromaSubPage("bad-chemical")}
                         className="p-4 rounded-lg border border-red-600/50 bg-red-900/10 hover:bg-red-900/30 transition-all"
                       >
-                        <h4 className="font-bold text-red-400 mb-1">氧化</h4>
-                        <p className="text-xs text-gray-400 mb-2">金属、塑料、消毒水</p>
+                        <h4 className="font-bold text-red-400 mb-1">溶剂</h4>
+                        <p className="text-xs text-gray-400 mb-2">指甲油、油漆</p>
                         <span className="text-xs text-red-500">点击查看 →</span>
                       </button>
 
-                      {/* 其他异味 */}
+                      {/* 硫/磷 bad-sulfur*/}
+                      <button
+                        onClick={() => setAromaSubPage("bad-sulfur")}
+                        className="p-4 rounded-lg border border-red-600/50 bg-red-900/10 hover:bg-red-900/30 transition-all"
+                      >
+                        <h4 className="font-bold text-red-400 mb-1">硫/磷</h4>
+                        <p className="text-xs text-gray-400 mb-2">矿物质、火柴划燃、臭鸡蛋</p>
+                        <span className="text-xs text-red-500">点击查看 →</span>
+                      </button>
+
+                      {/* 硫醇 bad-thiol*/}
+                      <button
+                        onClick={() => setAromaSubPage("bad-thiol")}
+                        className="p-4 rounded-lg border border-red-600/50 bg-red-900/10 hover:bg-red-900/30 transition-all"
+                      >
+                        <h4 className="font-bold text-red-400 mb-1">硫醇</h4>
+                        <p className="text-xs text-gray-400 mb-2">洋葱、大蒜、橡胶</p>
+                        <span className="text-xs text-red-500">点击查看 →</span>
+                      </button>
+
+                      {/* 氧化 bad-oxidized*/}
+                      <button
+                        onClick={() => setAromaSubPage("bad-oxidized")}
+                        className="p-4 rounded-lg border border-red-600/50 bg-red-900/10 hover:bg-red-900/30 transition-all"
+                      >
+                        <h4 className="font-bold text-red-400 mb-1">氧化</h4>
+                        <p className="text-xs text-gray-400 mb-2">纸板、湿纸、皮革、旧书</p>
+                        <span className="text-xs text-red-500">点击查看 →</span>
+                      </button>
+
+                      {/* 其他异味 bad-other*/}
                       <button
                         onClick={() => setAromaSubPage("bad-other")}
                         className="p-4 rounded-lg border border-red-600/50 bg-red-900/10 hover:bg-red-900/30 transition-all"
                       >
                         <h4 className="font-bold text-red-400 mb-1">其他</h4>
-                        <p className="text-xs text-gray-400 mb-2">臭鼬味、日光味、蔬菜味</p>
+                        <p className="text-xs text-gray-400 mb-2">臭鼬味、光臭味、蔬菜味</p>
                         <span className="text-xs text-red-500">点击查看 →</span>
                       </button>
                     </div>
@@ -655,86 +655,10 @@ export default function TastingPage() {
                   </div>
                 )}
 
-                {/* 好的香气详细子页面 - 麦芽香 */}
-                {aromaSubPage === "good-malt" && (
-                  <AromaDetailPage
-                    title="Lorem Ipsum"
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                    color="green"
-                    onBack={() => setAromaSubPage("good")}
-                    checkedItems={aromaChecked}
-                    setCheckedItems={setAromaChecked}
-                    subCheckedItems={aromaSubChecked}
-                    setSubCheckedItems={setAromaSubChecked}
-                    items={[
-                      {
-                        label: "Lorem Ipsum A",
-                        description: "Sed do eiusmod tempor incididunt",
-                        subItems: [
-                          { label: "Lorem sub A1", key: "maltA1" },
-                          { label: "Lorem sub A2", key: "maltA2" },
-                          { label: "Lorem sub A3", key: "maltA3" },
-                        ],
-                      },
-                      {
-                        label: "Lorem Ipsum B",
-                        description: "Ut labore et dolore magna aliqua",
-                        subItems: [
-                          { label: "Lorem sub B1", key: "maltB1" },
-                          { label: "Lorem sub B2", key: "maltB2" },
-                        ],
-                      },
-                      {
-                        label: "Lorem Ipsum C",
-                        description: "Ut enim ad minim veniam quis",
-                        subItems: [
-                          { label: "Lorem sub C1", key: "maltC1" },
-                          { label: "Lorem sub C2", key: "maltC2" },
-                          { label: "Lorem sub C3", key: "maltC3" },
-                          { label: "Lorem sub C4", key: "maltC4" },
-                        ],
-                      },
-                    ]}
-                  />
-                )}
-
-                {/* 好的香气详细子页面 - 酒花香 */}
-                {aromaSubPage === "good-hop" && (
-                  <AromaDetailPage
-                    title="Lorem Ipsum"
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                    color="green"
-                    onBack={() => setAromaSubPage("good")}
-                    checkedItems={aromaChecked}
-                    setCheckedItems={setAromaChecked}
-                    subCheckedItems={aromaSubChecked}
-                    setSubCheckedItems={setAromaSubChecked}
-                    items={[
-                      {
-                        label: "Lorem Ipsum A",
-                        description: "Sed do eiusmod tempor incididunt",
-                        subItems: [
-                          { label: "Lorem sub A1", key: "hopA1" },
-                          { label: "Lorem sub A2", key: "hopA2" },
-                        ],
-                      },
-                      {
-                        label: "Lorem Ipsum B",
-                        description: "Ut labore et dolore magna aliqua",
-                        subItems: [
-                          { label: "Lorem sub B1", key: "hopB1" },
-                          { label: "Lorem sub B2", key: "hopB2" },
-                          { label: "Lorem sub B3", key: "hopB3" },
-                        ],
-                      },
-                    ]}
-                  />
-                )}
-
-                {/* 好的香气详细子页面 - 果香 */}
+                {/* 好的香气详细子页面 - 水果 */}
                 {aromaSubPage === "good-fruit" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
+                    title="水果"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
@@ -744,19 +668,38 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
+                        label: "柑橘",
                         description: "Sed do eiusmod tempor incididunt",
                         subItems: [
-                          { label: "Lorem sub A1", key: "fruitA1" },
-                          { label: "Lorem sub A2", key: "fruitA2" },
+                          { label: "葡萄柚", key: "fruitCitrusA1" },
+                          { label: "橙子", key: "fruitCitrusA2" },
+                          { label: "柠檬", key: "fruitCitrusA3" },
                         ],
                       },
                       {
-                        label: "Lorem Ipsum B",
+                        label: "热带水果",
                         description: "Ut labore et dolore magna aliqua",
                         subItems: [
-                          { label: "Lorem sub B1", key: "fruitB1" },
-                          { label: "Lorem sub B2", key: "fruitB2" },
+                          { label: "百香果", key: "fruitTropicalB1" },
+                          { label: "芒果", key: "fruitTropicalB2" },
+                          { label: "荔枝", key: "fruitTropicalB3" },
+                          { label: "番石榴", key: "fruitTropicalB4" },
+                        ],
+                      },
+                      {
+                        label: "核果(Stonefruit)",
+                        description: "Ut enim ad minim veniam quis",
+                        subItems: [
+                          { label: "桃子", key: "fruitStoneC1" },
+                          { label: "杏子", key: "fruitStoneC2" },
+                        ],
+                      },
+                      {
+                        label: "浆果",
+                        description: "Duis aute irure dolor in reprehenderit",
+                        subItems: [
+                          { label: "黑醋栗", key: "fruitBerryD1" },
+                          { label: "樱桃", key: "fruitBerryD2" },
                         ],
                       },
                     ]}
@@ -766,7 +709,7 @@ export default function TastingPage() {
                 {/* 好的香气详细子页面 - 花香 */}
                 {aromaSubPage === "good-floral" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
+                    title="花香"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
@@ -776,29 +719,111 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
-                        description: "Sed do eiusmod tempor incididunt",
+                        label: "清甜型（Fresh / Sweet Floral）",
+                        description: "清新、甜润、不厚重，像“春天、阳光、空气感”，清新 / 干净 / 透明 / 轻甜，很好闻但不抢",
                         subItems: [
-                          { label: "Lorem sub A1", key: "floralA1" },
-                          { label: "Lorem sub A2", key: "floralA2" },
+                          { label: "铃兰", key: "floralRoseA1" },
+                          { label: "白色小苍兰", key: "floralRoseA2" },
+                          { label: "樱花", key: "floralRoseA3" },
+                          { label: "洋甘菊", key: "floralRoseA4" },
                         ],
                       },
                       {
-                        label: "Lorem Ipsum B",
-                        description: "Ut labore et dolore magna aliqua",
+                        label: "浓甜型（Rich Sweet Floral）",
+                        description: "明显甜感、饱满，一闻就知道是花香",
                         subItems: [
-                          { label: "Lorem sub B1", key: "floralB1" },
+                          { label: "玫瑰", key: "floralJasmineB1" },
+                          { label: "牡丹", key: "floralJasmineB2" },
+                          { label: "风信子", key: "floralJasmineB3" },
+                        ],
+                      },
+                      {
+                        label: "白花奶香型（White Floral / Creamy）",
+                        description: "奶香，浓郁，脂粉感",
+                        subItems: [
+                          { label: "茉莉", key: "floralLavenderC1" },
+                          { label: "栀子花", key: "floralLavenderC2" },
+                          { label: "晚香玉", key: "floralLavenderC3" },
+                          { label: "依兰", key: "floralLavenderC4" },
+                        ],
+                      },
+                      {
+                        label: "粉感 / 脂粉型（Powdery Floral）",
+                        description: "爽身粉，香气柔软、不刺激",
+                        subItems: [
+                          { label: "紫罗兰", key: "floralRoseD1" },
+                          { label: "鸢尾花", key: "floralRoseD2" },
+                        ],
+                      },
+                      {
+                        label: "绿感 / 草本花香型（Green Floral）",
+                        description: "花香中带明显叶子、茎秆、青草味，不甜，偏自然，青绿 / 清苦 / 自然",
+                        subItems: [
+                          { label: "百合", key: "floralRoseE1" },
+                          { label: "郁金香", key: "floralRoseE2" },
+                          { label: "小菊花", key: "floralRoseE3" },
+                        ],
+                      },
+                      {
+                        label: "果香/蜂蜜感花香（Fruity / Honeyed Floral）",
+                        description: "花香中混合水果或蜂蜜气息，香气活泼、圆润，蜜甜 / 果香 / 暖",
+                        subItems: [
+                          { label: "金银花", key: "floralRoseF1" },
+                          { label: "忍冬", key: "floralRoseF2" },
+                          { label: "桂花", key: "floralRoseF3" },
                         ],
                       },
                     ]}
                   />
                 )}
 
-                {/* 好的香气详细子页面 - 香料香 */}
+                {/* 好的香气详细子页面 - 草本 */}
+                {aromaSubPage === "good-grass" && (
+                  <AromaDetailPage
+                    title="草本"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    color="green"
+                    onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
+                    items={[
+                      {
+                        label: "草香（Grassy）",
+                        description: "Sed do eiusmod tempor incididunt",
+                        subItems: [
+                          { label: "青草香", key: "herbalGrassA1" },
+                          { label: "干草香", key: "herbalGrassA2" },
+                        ],
+                      },
+                      {
+                        label: "草药（Herbal）",
+                        description: "Ut labore et dolore magna aliqua",
+                        subItems: [
+                          { label: "迷迭香", key: "herbalHerbB1" },
+                          { label: "百里香", key: "herbalHerbB2" },
+                          { label: "鼠尾草", key: "herbalHerbB3" },
+                        ],
+                      },
+                      {
+                        label: "茶叶",
+                        description: "Ut enim ad minim veniam quis",
+                        subItems: [
+                          { label: "发酵茶（红茶、普洱茶）", key: "herbalTeaC1" },
+                          { label: "未发酵茶（绿茶）", key: "herbalTeaC2" },
+                          { label: "高香茶（乌龙、水仙）", key: "herbalTeaC3" },
+                        ],
+                      },
+                    ]}
+                  />
+                )}
+
+                {/* 好的香气详细子页面 - 香辛料 */}
                 {aromaSubPage === "good-spice" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    title="香辛料"
+                    description="胡椒感、温热、干燥、刺激鼻腔、收口"
                     color="green"
                     onBack={() => setAromaSubPage("good")}
                     checkedItems={aromaChecked}
@@ -807,28 +832,35 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
+                        label: "胡椒",
                         description: "Sed do eiusmod tempor incididunt",
                         subItems: [
-                          { label: "Lorem sub A1", key: "spiceA1" },
-                          { label: "Lorem sub A2", key: "spiceA2" },
+                          { label: "黑胡椒", key: "spicePepperA1" },
+                          { label: "白胡椒", key: "spicePepperA2" },
                         ],
                       },
                       {
-                        label: "Lorem Ipsum B",
+                        label: "丁香",
                         description: "Ut labore et dolore magna aliqua",
                         subItems: [
-                          { label: "Lorem sub B1", key: "spiceB1" },
+                        ],
+                      },
+                      {
+                        label: "干香料",
+                        description: "Ut enim ad minim veniam quis",
+                        subItems: [
+                          { label: "肉桂", key: "spiceCinnamonC1" },
+                          { label: "肉豆蔻", key: "spiceCinnamonC2" },
                         ],
                       },
                     ]}
                   />
                 )}
 
-                {/* 好的香气详细子页面 - 酵母香 */}
+                {/* 好的香气详细子页面 - 谷物及制品 */}
                 {aromaSubPage === "good-yeast" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
+                    title="谷物及制品"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
@@ -838,21 +870,163 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
-                        description: "Sed do eiusmod tempor incididunt",
+                        label: "生谷物 / 淀粉型（Raw Grain / Starchy）",
+                        description: "生、粉、淡、没有香气深度",
                         subItems: [
-                          { label: "Lorem sub A1", key: "yeastA1" },
-                          { label: "Lorem sub A2", key: "yeastA2" },
+                          { label: "生面粉", key: "grainBreadA1" },
+                          { label: "生大米 / 玉米渣", key: "grainBreadA2" },
+                          { label: "生燕麦", key: "grainBreadA3" },
+                          { label: "湿面糊", key: "grainBreadA4" },
+                        ],
+                      },
+                      {
+                        label: "面包 / 烘焙型（Bready / Doughy）",
+                        description: "温和、柔软、熟面粉",
+                        subItems: [
+                          { label: "新鲜面包", key: "grainGlutenB1" },
+                          { label: "面团/发好的面", key: "grainGlutenB2" },
+                          { label: "白吐司内部", key: "grainGlutenB3" },
+                        ],
+                      },
+                      {
+                        label: "烘烤谷物型（Toasty / Biscuit / Crackery）",
+                        description: "干、脆、烤过",
+                        subItems: [
+                          { label: "饼干/苏打饼", key: "grainYeastC1" },
+                          { label: "烤吐司边", key: "grainYeastC2" },
+                        ],
+                      },
+                      {
+                        label: "麦芽甜香型（Malty / Sweet Grain）",
+                        description: "温暖、甜润、不焦",
+                        subItems: [
+                          { label: "麦芽糖", key: "grainDoughD1" },
+                          { label: "蜂蜜麦片", key: "grainDoughD2" },
+                          { label: "谷物甜香", key: "grainDoughD3" },
+                        ],
+                      },
+                      {
+                        label: "酵母 / 面团发酵型（Yeasty / Fermentation Dough）",
+                        description: "发酵、湿、面包房",
+                        subItems: [
+                          { label: "酵母", key: "grainDoughE1" },
+                          { label: "发酵面包房", key: "grainDoughE2" },
                         ],
                       },
                     ]}
                   />
                 )}
 
-                {/* 好的香气详细子页面 - 烘烤香 */}
+                {/* 好的香气详细子页面 - 甜香 */}
+                {aromaSubPage === "good-sweet" && (
+                  <AromaDetailPage
+                    title="甜香"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    color="green"
+                    onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
+                    items={[
+                      {
+                        label: "自然甜香(Honey / Floral Sweet)",
+                        description: "清甜、花感、轻盈",
+                        subItems: [
+                          { label: "蜂蜜", key: "sweetHoneyA1" },
+                          { label: "蜂蜡（轻度）", key: "sweetHoneyA2" },
+                        ],
+                      },
+                      {
+                        label: "糖浆型甜香(Syrupy Sweet)",
+                        description: "流动感、暖、不花、不焦",
+                        subItems: [
+                          { label: "枫糖浆/甘蔗糖浆", key: "sweetToffeeB1" },
+                          { label: "热糖水", key: "sweetToffeeB2" },
+                        ],
+                      },
+                      {
+                        label: "乳脂 / 奶糖型甜香(Caramelized Milk Sugar / Creamy Sweet)",
+                        description: "奶感、圆润、黏口",
+                        subItems: [
+                          { label: "太妃糖(Toffee)", key: "sweetSyrupC1" },
+                          { label: "奶糖", key: "sweetSyrupC2" },
+                          { label: "焦糖布丁", key: "sweetSyrupC3" },
+                        ],
+                      },
+                      {
+                        label: "焦糖型甜香(Caramel / Burnt Sugar)",
+                        description: "暖、厚、明显甜",
+                        subItems: [
+                          { label: "焦糖", key: "sweetSyrupD1" },
+                          { label: "红糖", key: "sweetSyrupD2" },
+                        ],
+                      },
+                      {
+                        label: "深焦糖/烧糖甜(Molasses/Treacle/Dark Syrup)",
+                        description: "深色、浓厚、复杂、轻微苦",
+                        subItems: [
+                          { label: "黑枫糖", key: "sweetSyrupE1" },
+                          { label: "比利时深色糖浆(D-90 / D-180)", key: "sweetSyrupE2" },
+                        ],
+                      },
+                    ]}
+                  />
+                )}
+
+                {/* 好的香气详细子页面 - 焦香 */}
                 {aromaSubPage === "good-roast" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
+                    title="焦香"
+                    description="Roasted & Burnt aromas"
+                    color="green"
+                    onBack={() => setAromaSubPage("good")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
+                    items={[
+                      {
+                        label: "巧克力 / 可可",
+                        description: "干、苦甜平衡",
+                        subItems: [
+                          { label: "黑巧克力", key: "roastCoffeeA1" },
+                          { label: "可可粉", key: "roastCoffeeA2" },
+                        ],
+                      },
+                      {
+                        label: "咖啡",
+                        description: "苦、干、深",
+                        subItems: [
+                          { label: "浓缩咖啡", key: "roastChocolateB1" },
+                          { label: "深烘咖啡豆", key: "roastChocolateB2" },
+                          { label: "咖啡渣", key: "roastChocolateB3" },
+                        ],
+                      },
+                      {
+                        label: "烟熏",
+                        description: "Ut enim ad minim veniam quis",
+                        subItems: [
+                          { label: "木质烟熏", key: "roastSmokyC1" },
+                          { label: "烟熏制品（火腿/培根）", key: "roastSmokyC2" },
+                        ],
+                      },
+                      {
+                        label: "烧焦 / 灰烬型",
+                        description: "灰、苦、刺",
+                        subItems: [
+                          { label: "烧焦面包", key: "roastSmokyD1" },
+                          { label: "炭灰/焦炭", key: "roastSmokyD2" },
+                        ],
+                      },
+                    ]}
+                  />
+                )}
+
+                {/* 好的香气详细子页面 - 陈化 */}
+                {aromaSubPage === "good-aged" && (
+                  <AromaDetailPage
+                    title="陈化"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
@@ -862,28 +1036,30 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
+                        label: "陈味",
                         description: "Sed do eiusmod tempor incididunt",
                         subItems: [
-                          { label: "Lorem sub A1", key: "roastA1" },
-                          { label: "Lorem sub A2", key: "roastA2" },
+                          { label: "干果 / 雪莉", key: "agedOldA1" },
+                          { label: "氧化甜：蜂蜜 / 太妃", key: "agedOldA2" },
                         ],
                       },
                       {
-                        label: "Lorem Ipsum B",
+                        label: "桶味",
                         description: "Ut labore et dolore magna aliqua",
                         subItems: [
-                          { label: "Lorem sub B1", key: "roastB1" },
+                          { label: "波本桶", key: "agedBarrelB1" },
+                          { label: "朗姆桶", key: "agedBarrelB2" },
+                          { label: "葡萄酒桶", key: "agedBarrelB3" },
                         ],
                       },
                     ]}
                   />
                 )}
 
-                {/* 好的香气详细子页面 - 焦糖香 */}
-                {aromaSubPage === "good-caramel" && (
+                {/* 好的香气详细子页面 - 酸味 */}
+                {aromaSubPage === "good-sour" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
+                    title="酸味"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
@@ -893,35 +1069,47 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
-                        description: "Sed do eiusmod tempor incididunt",
+                        label: "乳酸",
+                        description: "柔和、圆润、干净",
                         subItems: [
-                          { label: "Lorem sub A1", key: "caramelA1" },
-                          { label: "Lorem sub A2", key: "caramelA2" },
+                          { label: "酸奶", key: "sourLacticA1" },
+                          { label: "乳清", key: "sourLacticA2" },
                         ],
                       },
-                    ]}
-                  />
-                )}
-
-                {/* 好的香气详细子页面 - 木质香 */}
-                {aromaSubPage === "good-wood" && (
-                  <AromaDetailPage
-                    title="Lorem Ipsum"
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                    color="green"
-                    onBack={() => setAromaSubPage("good")}
-                    checkedItems={aromaChecked}
-                    setCheckedItems={setAromaChecked}
-                    subCheckedItems={aromaSubChecked}
-                    setSubCheckedItems={setAromaSubChecked}
-                    items={[
                       {
-                        label: "Lorem Ipsum A",
-                        description: "Sed do eiusmod tempor incididunt",
+                        label: "果酸",
+                        description: "明亮、清爽、尖",
                         subItems: [
-                          { label: "Lorem sub A1", key: "woodA1" },
-                          { label: "Lorem sub A2", key: "woodA2" },
+                          { label: "柠檬皮", key: "sourAceticB1" },
+                          { label: "青苹果", key: "sourAceticB2" },
+                          { label: "未熟水果", key: "sourAceticB3" },
+                        ],
+                      },
+                      {
+                        label: "醋酸",
+                        description: "刺鼻、挥发、锐利",
+                        subItems: [
+                          { label: "白醋", key: "sourAceticC1" },
+                          { label: "果醋", key: "sourAceticC2" },
+                          { label: "陈醋", key: "sourAceticC3" },
+                        ],
+                      },
+                      {
+                        label: "酒石酸 / 葡萄酒酸",
+                        description: "干、涩、酒感",
+                        subItems: [
+                          { label: "干红葡萄酒", key: "sourAceticD1" },
+                          { label: "葡萄皮", key: "sourAceticD2" },
+                          { label: "酒石", key: "sourAceticD3" },
+                        ],
+                      },
+                      {
+                        label: "野生菌酸 / Funky 酸",
+                        description: "野、干、复杂",
+                        subItems: [
+                          { label: "马厩", key: "sourAceticE1" },
+                          { label: "皮革", key: "sourAceticE2" },
+                          { label: "土腥", key: "sourAceticE3" },
                         ],
                       },
                     ]}
@@ -931,7 +1119,7 @@ export default function TastingPage() {
                 {/* 好的香气详细子页面 - 其他 */}
                 {aromaSubPage === "good-other" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
+                    title="其他"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="green"
                     onBack={() => setAromaSubPage("good")}
@@ -941,52 +1129,37 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
+                        label: "TBD",
                         description: "Sed do eiusmod tempor incididunt",
                         subItems: [
-                          { label: "Lorem sub A1", key: "otherGoodA1" },
-                          { label: "Lorem sub A2", key: "otherGoodA2" },
-                        ],
-                      },
-                    ]}
-                  />
-                )}
-
-                {/* 不好的香气详细子页面 - 氧化味 */}
-                {aromaSubPage === "bad-oxidized" && (
-                  <AromaDetailPage
-                    title="Lorem Ipsum"
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                    color="red"
-                    onBack={() => setAromaSubPage("bad")}
-                    checkedItems={aromaChecked}
-                    setCheckedItems={setAromaChecked}
-                    subCheckedItems={aromaSubChecked}
-                    setSubCheckedItems={setAromaSubChecked}
-                    items={[
-                      {
-                        label: "Lorem Ipsum A",
-                        description: "Sed do eiusmod tempor incididunt",
-                        subItems: [
-                          { label: "Lorem sub A1", key: "oxidizedA1" },
-                          { label: "Lorem sub A2", key: "oxidizedA2" },
+                          { label: "Lorem sub A1", key: "otherBarnyardA1" },
+                          { label: "Lorem sub A2", key: "otherBarnyardA2" },
                         ],
                       },
                       {
-                        label: "Lorem Ipsum B",
+                        label: "TBD",
                         description: "Ut labore et dolore magna aliqua",
                         subItems: [
-                          { label: "Lorem sub B1", key: "oxidizedB1" },
+                          { label: "Lorem sub B1", key: "otherLeatherB1" },
+                          { label: "Lorem sub B2", key: "otherLeatherB2" },
+                        ],
+                      },
+                      {
+                        label: "TBD",
+                        description: "Ut enim ad minim veniam quis",
+                        subItems: [
+                          { label: "Lorem sub C1", key: "otherEarthyC1" },
+                          { label: "Lorem sub C2", key: "otherEarthyC2" },
                         ],
                       },
                     ]}
                   />
                 )}
 
-                {/* 不好的香气详细子页面 - 硫化物 */}
-                {aromaSubPage === "bad-sulfur" && (
+                {/* 不好的香气详细子页面 - 酒精 */}
+                {aromaSubPage === "bad-alcohol" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
+                    title="酒精"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="red"
                     onBack={() => setAromaSubPage("bad")}
@@ -996,69 +1169,20 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
+                        label: "乙醇刺激",
                         description: "Sed do eiusmod tempor incididunt",
                         subItems: [
-                          { label: "Lorem sub A1", key: "sulfurA1" },
-                          { label: "Lorem sub A2", key: "sulfurA2" },
+                          
                         ],
                       },
                     ]}
                   />
                 )}
 
-                {/* 不好的香气详细子页面 - 发酵异味 */}
-                {aromaSubPage === "bad-ferment" && (
-                  <AromaDetailPage
-                    title="Lorem Ipsum"
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                    color="red"
-                    onBack={() => setAromaSubPage("bad")}
-                    checkedItems={aromaChecked}
-                    setCheckedItems={setAromaChecked}
-                    subCheckedItems={aromaSubChecked}
-                    setSubCheckedItems={setAromaSubChecked}
-                    items={[
-                      {
-                        label: "Lorem Ipsum A",
-                        description: "Sed do eiusmod tempor incididunt",
-                        subItems: [
-                          { label: "Lorem sub A1", key: "fermentA1" },
-                          { label: "Lorem sub A2", key: "fermentA2" },
-                        ],
-                      },
-                    ]}
-                  />
-                )}
-
-                {/* 不好的香气详细子页面 - 微生物污染 */}
-                {aromaSubPage === "bad-microbial" && (
-                  <AromaDetailPage
-                    title="Lorem Ipsum"
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                    color="red"
-                    onBack={() => setAromaSubPage("bad")}
-                    checkedItems={aromaChecked}
-                    setCheckedItems={setAromaChecked}
-                    subCheckedItems={aromaSubChecked}
-                    setSubCheckedItems={setAromaSubChecked}
-                    items={[
-                      {
-                        label: "Lorem Ipsum A",
-                        description: "Sed do eiusmod tempor incididunt",
-                        subItems: [
-                          { label: "Lorem sub A1", key: "microbialA1" },
-                          { label: "Lorem sub A2", key: "microbialA2" },
-                        ],
-                      },
-                    ]}
-                  />
-                )}
-
-                {/* 不好的香气详细子页面 - 化学异味 */}
+                {/* 不好的香气详细子页面 - 溶剂 */}
                 {aromaSubPage === "bad-chemical" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
+                    title="溶剂"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="red"
                     onBack={() => setAromaSubPage("bad")}
@@ -1068,21 +1192,27 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
+                        label: "指甲油",
                         description: "Sed do eiusmod tempor incididunt",
                         subItems: [
-                          { label: "Lorem sub A1", key: "chemicalA1" },
-                          { label: "Lorem sub A2", key: "chemicalA2" },
+                          
+                        ],
+                      },
+                      {
+                        label: "油漆",
+                        description: "Ut labore et dolore magna aliqua",
+                        subItems: [
+                          
                         ],
                       },
                     ]}
                   />
                 )}
 
-                {/* 不好的香气详细子页面 - 其他异味 */}
-                {aromaSubPage === "bad-other" && (
+                {/* 不好的香气详细子页面 - 硫/磷 */}
+                {aromaSubPage === "bad-sulfur" && (
                   <AromaDetailPage
-                    title="Lorem Ipsum"
+                    title="硫/磷"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                     color="red"
                     onBack={() => setAromaSubPage("bad")}
@@ -1092,11 +1222,142 @@ export default function TastingPage() {
                     setSubCheckedItems={setAromaSubChecked}
                     items={[
                       {
-                        label: "Lorem Ipsum A",
+                        label: "矿物质",
                         description: "Sed do eiusmod tempor incididunt",
                         subItems: [
-                          { label: "Lorem sub A1", key: "otherBadA1" },
-                          { label: "Lorem sub A2", key: "otherBadA2" },
+                          
+                        ],
+                      },
+                      {
+                        label: "火柴划燃",
+                        description: "Ut labore et dolore magna aliqua",
+                        subItems: [
+                          
+                        ],
+                      },
+                      {
+                        label: "臭鸡蛋",
+                        description: "Ut enim ad minim veniam quis",
+                        subItems: [
+                          
+                        ],
+                      },
+                    ]}
+                  />
+                )}
+
+                {/* 不好的香气详细子页面 - 硫醇 */}
+                {aromaSubPage === "bad-thiol" && (
+                  <AromaDetailPage
+                    title="硫醇"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    color="red"
+                    onBack={() => setAromaSubPage("bad")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
+                    items={[
+                      {
+                        label: "洋葱",
+                        description: "Sed do eiusmod tempor incididunt",
+                        subItems: [
+                          
+                        ],
+                      },
+                      {
+                        label: "大蒜",
+                        description: "Ut labore et dolore magna aliqua",
+                        subItems: [
+                          
+                        ],
+                      },
+                      {
+                        label: "橡胶",
+                        description: "Ut enim ad minim veniam quis",
+                        subItems: [
+                          
+                        ],
+                      },
+                    ]}
+                  />
+                )}
+
+                {/* 不好的香气详细子页面 - 氧化 */}
+                {aromaSubPage === "bad-oxidized" && (
+                  <AromaDetailPage
+                    title="氧化"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    color="red"
+                    onBack={() => setAromaSubPage("bad")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
+                    items={[
+                      {
+                        label: "纸板",
+                        description: "Sed do eiusmod tempor incididunt",
+                        subItems: [
+                          
+                        ],
+                      },
+                      {
+                        label: "湿纸",
+                        description: "Ut labore et dolore magna aliqua",
+                        subItems: [
+                          
+                        ],
+                      },
+                      {
+                        label: "皮革",
+                        description: "Ut enim ad minim veniam quis",
+                        subItems: [
+                          
+                        ],
+                      },
+                      {
+                        label: "旧书",
+                        description: "Duis aute irure dolor in reprehenderit",
+                        subItems: [
+                          
+                        ],
+                      },
+                    ]}
+                  />
+                )}
+
+                {/* 不好的香气详细子页面 - 其他 */}
+                {aromaSubPage === "bad-other" && (
+                  <AromaDetailPage
+                    title="其他"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    color="red"
+                    onBack={() => setAromaSubPage("bad")}
+                    checkedItems={aromaChecked}
+                    setCheckedItems={setAromaChecked}
+                    subCheckedItems={aromaSubChecked}
+                    setSubCheckedItems={setAromaSubChecked}
+                    items={[
+                      {
+                        label: "臭鼬味",
+                        description: "Sed do eiusmod tempor incididunt",
+                        subItems: [
+                          
+                        ],
+                      },
+                      {
+                        label: "光臭味",
+                        description: "Ut labore et dolore magna aliqua",
+                        subItems: [
+                          
+                        ],
+                      },
+                      {
+                        label: "蔬菜味",
+                        description: "Ut enim ad minim veniam quis",
+                        subItems: [
+                          
                         ],
                       },
                     ]}
