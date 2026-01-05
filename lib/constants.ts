@@ -4,6 +4,7 @@ export const STEPS = [
   { id: 'aroma', title: '香气', titleEn: 'Aroma' },
   { id: 'taste', title: '味道', titleEn: 'Taste' },
   { id: 'mouthfeel', title: '口感', titleEn: 'Mouthfeel' },
+  { id: 'ending', title: '收口', titleEn: 'Ending' },
   { id: 'overall', title: '整体', titleEn: 'Overall' },
 ] as const;
 
@@ -35,6 +36,7 @@ export const INITIAL_SCORE = {
   },
   taste: { sweet: 3, bitter: 3, sour: 3, maltFlavor: 3, hopFlavor: 3 },
   mouthfeel: { body: 3, carbonation: 3, finish: 3 },
+  finish: { cleanliness: 3, duration: 30, alcoholWarmth: 0 },
   overall: { balance: 3, complexity: 3, enjoyment: 3 },
 };
 
@@ -43,5 +45,6 @@ export const TRANSITION_TEXTS = [
   { title: "色泽观察完毕", description: "现在闭上眼睛，感受啤酒的香气" },
   { title: "香气记录完成", description: "轻啜一口，让味蕾感受风味" },
   { title: "风味探索结束", description: "感受啤酒在口中的质感" },
+  { title: "口感体验完成", description: "感受口腔中留下的味道" },
   { title: "即将完成", description: "最后给出你的整体评价" },
 ];

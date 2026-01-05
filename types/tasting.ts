@@ -36,6 +36,11 @@ export interface TastingScore {
     carbonation: number;
     finish: number;
   };
+  finish: {
+    cleanliness: number;
+    duration: number;
+    alcoholWarmth: number;
+  };
   overall: {
     balance: number;
     complexity: number;

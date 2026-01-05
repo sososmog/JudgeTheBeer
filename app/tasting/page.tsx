@@ -1418,8 +1418,113 @@ export default function TastingPage() {
               </div>
             )}
 
-            {/* 步骤 5: 整体 */}
+            {/* 步骤 5: 收口与回温 */}
             {currentStep === 5 && (
+              <div className="space-y-6">
+                {/* 干净程度 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-3">
+                    收口干净程度
+                  </label>
+                  <div className="flex gap-4">
+                    <button
+                      onClick={() => updateScore("finish", "cleanliness", 5)}
+                      className={`flex-1 p-4 rounded-lg border transition-all ${
+                        score.finish?.cleanliness === 5
+                          ? "border-green-500 bg-green-900/40 text-green-400"
+                          : "border-neutral-600 bg-neutral-700 hover:bg-neutral-600 text-gray-300"
+                      }`}
+                    >
+                      <div className="text-2xl mb-1">✨</div>
+                      <div className="font-medium">干净</div>
+                    </button>
+                    <button
+                      onClick={() => updateScore("finish", "cleanliness", 3)}
+                      className={`flex-1 p-4 rounded-lg border transition-all ${
+                        score.finish?.cleanliness === 3
+                          ? "border-amber-500 bg-amber-900/40 text-amber-400"
+                          : "border-neutral-600 bg-neutral-700 hover:bg-neutral-600 text-gray-300"
+                      }`}
+                    >
+                      <div className="text-2xl mb-1">👌</div>
+                      <div className="font-medium">适中</div>
+                    </button>
+                    <button
+                      onClick={() => updateScore("finish", "cleanliness", 1)}
+                      className={`flex-1 p-4 rounded-lg border transition-all ${
+                        score.finish?.cleanliness === 1
+                          ? "border-red-500 bg-red-900/40 text-red-400"
+                          : "border-neutral-600 bg-neutral-700 hover:bg-neutral-600 text-gray-300"
+                      }`}
+                    >
+                      <div className="text-2xl mb-1">😕</div>
+                      <div className="font-medium">不干净</div>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 收口时长 */}
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-300">收口时长</span>
+                    <span className="text-sm font-bold text-amber-400">
+                      {score.finish?.duration
+                        ? score.finish.duration >= 60
+                          ? "1min"
+                          : `${score.finish.duration}s`
+                        : "30s"}
+                    </span>
+                  </div>
+                  <Slider
+                    value={[score.finish?.duration || 30]}
+                    onValueChange={(v) => updateScore("finish", "duration", v[0])}
+                    min={5}
+                    max={60}
+                    step={5}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>5s</span>
+                    <span>30s</span>
+                    <span>1min</span>
+                  </div>
+                </div>
+
+                {/* 回温后酒精感 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-3">
+                    回温后是否有酒精感？
+                  </label>
+                  <div className="flex gap-4">
+                    <button
+                      onClick={() => updateScore("finish", "alcoholWarmth", 1)}
+                      className={`flex-1 p-4 rounded-lg border transition-all ${
+                        score.finish?.alcoholWarmth === 1
+                          ? "border-amber-500 bg-amber-900/40 text-amber-400"
+                          : "border-neutral-600 bg-neutral-700 hover:bg-neutral-600 text-gray-300"
+                      }`}
+                    >
+                      <div className="text-2xl mb-1">🔥</div>
+                      <div className="font-medium">是</div>
+                    </button>
+                    <button
+                      onClick={() => updateScore("finish", "alcoholWarmth", 0)}
+                      className={`flex-1 p-4 rounded-lg border transition-all ${
+                        score.finish?.alcoholWarmth === 0
+                          ? "border-green-500 bg-green-900/40 text-green-400"
+                          : "border-neutral-600 bg-neutral-700 hover:bg-neutral-600 text-gray-300"
+                      }`}
+                    >
+                      <div className="text-2xl mb-1">❄️</div>
+                      <div className="font-medium">否</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 步骤 6: 整体 */}
+            {currentStep === 6 && (
               <div className="space-y-6">
                 <ScoreSlider
                   label="平衡度 (Balance)"
@@ -1436,6 +1541,15 @@ export default function TastingPage() {
                   value={score.overall.enjoyment}
                   onChange={(v) => updateScore("overall", "enjoyment", v)}
                 />
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    品鉴笔记
+                  </label>
+                  <textarea
+                    className="w-full p-3 border border-neutral-600 rounded-lg bg-neutral-700 text-white placeholder-gray-400 min-h-[120px]"
+                    placeholder="记录你对这杯啤酒的整体感受..."
+                  />
+                </div>
               </div>
             )}
           </Card>
