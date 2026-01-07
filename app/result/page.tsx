@@ -92,6 +92,59 @@ export default function ResultPage() {
     }
   };
 
+  // 获取强度描述
+  const getIntensityText = (value: number) => {
+    if (value >= 4) return "浓郁的";
+    if (value >= 3) return "明显的";
+    if (value >= 2) return "适中的";
+    if (value >= 1) return "淡淡的";
+    return "";
+  };
+
+  // 生成风味描述
+  const generateFlavorDescription = () => {
+    const activeFlavorEntries = Object.entries(flavorValues).filter(([_, v]) => v > 0);
+    
+    if (activeFlavorEntries.length === 0) return "";
+
+    // 按强度排序，取最突出的风味
+    const sortedFlavors = activeFlavorEntries.sort((a, b) => b[1] - a[1]);
+    
+    // 分组：强烈风味 (>=3) 和 较弱风味 (<3)
+    const strongFlavors = sortedFlavors.filter(([_, v]) => v >= 3);
+    const mildFlavors = sortedFlavors.filter(([_, v]) => v > 0 && v < 3);
+
+    const descriptions: string[] = [];
+
+    if (strongFlavors.length > 0) {
+      const flavorNames = strongFlavors.slice(0, 3).map(([key, value]) => {
+        const flavorName = key.split("-")[1] || key;
+        return `${getIntensityText(value)}${flavorName}`;
+      });
+      
+      if (flavorNames.length === 1) {
+        descriptions.push(`风味上呈现出${flavorNames[0]}。`);
+      } else {
+        descriptions.push(`风味上呈现出${flavorNames.join("、")}等特点。`);
+      }
+    }
+
+    if (mildFlavors.length > 0 && strongFlavors.length === 0) {
+      const flavorNames = mildFlavors.slice(0, 3).map(([key, value]) => {
+        const flavorName = key.split("-")[1] || key;
+        return `${getIntensityText(value)}${flavorName}`;
+      });
+      descriptions.push(`风味较为柔和，带有${flavorNames.join("、")}。`);
+    } else if (mildFlavors.length > 0) {
+      const flavorNames = mildFlavors.slice(0, 2).map(([key]) => {
+        return key.split("-")[1] || key;
+      });
+      descriptions.push(`同时伴有轻微的${flavorNames.join("、")}点缀其中。`);
+    }
+
+    return descriptions.join("");
+  };
+
   // 生成评语
   const generateComment = () => {
     const comments: string[] = [];
@@ -112,6 +165,12 @@ export default function ResultPage() {
       comments.push("香气表现适中，有一定的风味特点。");
     } else {
       comments.push("香气较为简单，风味层次有限。");
+    }
+
+    // 风味评价（新增）
+    const flavorDesc = generateFlavorDescription();
+    if (flavorDesc) {
+      comments.push(flavorDesc);
     }
 
     // 口感评价
@@ -267,14 +326,18 @@ export default function ResultPage() {
                   <div key={category}>
                     <span className="text-sm text-gray-400">{category}：</span>
                     <div className="flex flex-wrap gap-2 mt-1">
-                      {items.map((item, index) => (
-                        <span
-                          key={index}
-                          className="px-2 py-0.5 bg-amber-900/30 border border-amber-600/50 text-amber-400 rounded text-xs"
-                        >
-                          {item}
-                        </span>
-                      ))}
+                      {items.map((item, index) => {
+                        const key = `${category}-${item}`;
+                        const intensity = flavorValues[key] || 0;
+                        return (
+                          <span
+                            key={index}
+                            className="px-2 py-0.5 bg-amber-900/30 border border-amber-600/50 text-amber-400 rounded text-xs"
+                          >
+                            {item} ({getIntensityText(intensity).replace("的", "") || "微弱"})
+                          </span>
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
