@@ -1549,30 +1549,36 @@ export default function TastingPage() {
                 className="bg-amber-600 hover:bg-amber-700"
                 onClick={() => {
                   const avgAppearance = (
-                    (score.appearance.color + score.appearance.clarity + score.appearance.head) / 3
+                    (score.appearance.color + score.appearance.clarity + score.appearance.headColor + score.appearance.headTexture + score.appearance.headRetention + score.appearance.viscosity) / 6
                   ).toFixed(1);
-                  const avgAroma = (
-                    (score.aroma.malt + score.aroma.hops + score.aroma.yeast + score.aroma.other) / 4
+                  
+                  const avgMouthfeel = Object.values(flavorValues).length > 0
+                    ? (Object.values(flavorValues).reduce((a, b) => a + b, 0) / Object.values(flavorValues).length).toFixed(1)
+                    : "3.0";
+                  
+                  const avgFinish = (
+                    ((score.finish?.cleanliness || 3) + (score.finish?.duration ? score.finish.duration / 20 : 1.5)) / 2
                   ).toFixed(1);
-                  const avgTaste = (
-                    (score.taste.sweet + score.taste.bitter + score.taste.sour + score.taste.maltFlavor + score.taste.hopFlavor) / 5
-                  ).toFixed(1);
-                  const avgMouthfeel = (
-                    (score.mouthfeel.body + score.mouthfeel.carbonation + score.mouthfeel.finish) / 3
-                  ).toFixed(1);
-                  const avgOverall = (
-                    (score.overall.balance + score.overall.complexity + score.overall.enjoyment) / 3
-                  ).toFixed(1);
+
+                  // 收集勾选的香气
+                  const selectedAromas = Object.entries({ ...aromaChecked, ...aromaSubChecked })
+                    .filter(([_, checked]) => checked)
+                    .map(([key]) => key);
 
                   const params = new URLSearchParams({
                     name: beerInfo.name,
                     style: beerInfo.style,
                     brewery: beerInfo.brewery,
+                    drinkDate: beerInfo.drinkDate ? beerInfo.drinkDate.toISOString() : "",
+                    packageDate: beerInfo.packageDate ? beerInfo.packageDate.toISOString() : "",
                     appearance: avgAppearance,
-                    aroma: avgAroma,
-                    taste: avgTaste,
                     mouthfeel: avgMouthfeel,
-                    overall: avgOverall,
+                    finish: avgFinish,
+                    cleanliness: String(score.finish?.cleanliness || 3),
+                    duration: String(score.finish?.duration || 30),
+                    alcoholWarmth: String(score.finish?.alcoholWarmth || 0),
+                    aromas: selectedAromas.join(","),
+                    flavors: JSON.stringify(flavorValues),
                   });
 
                   window.location.href = `/result?${params.toString()}`;
