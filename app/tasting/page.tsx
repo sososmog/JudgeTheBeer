@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
+import { FlavorWheel } from "@/components/FlavorWheel";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -62,7 +63,7 @@ export default function TastingPage() {
   const [aromaSubPage, setAromaSubPage] = useState<"main" | "good" | "bad" | "good-fruit" | "good-floral" | "good-grass" | "good-spice" | "good-yeast" | "good-sweet" | "good-roast" | "good-aged" | "good-sour" | "good-other" | "bad-alcohol" | "bad-chemical" | "bad-sulfur" | "bad-thiol" | "bad-oxidized" | "bad-other">("main");
   const [aromaChecked, setAromaChecked] = useState<Record<string, boolean>>({});
   const [aromaSubChecked, setAromaSubChecked] = useState<Record<string, boolean>>({});
-
+  const [flavorValues, setFlavorValues] = useState<Record<string, number>>({});
 
   const updateScore = (
     category: keyof TastingScore,
@@ -94,6 +95,10 @@ export default function TastingPage() {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
+  };
+
+  const updateFlavorValue = (key: string, value: number) => {
+    setFlavorValues((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
@@ -1366,35 +1371,9 @@ export default function TastingPage() {
               </>
             )}
 
-            {/* 步骤 3: 味道 */}
+            {/* 步骤 3: 风味 */}
             {currentStep === 3 && (
-              <div className="space-y-6">
-                <ScoreSlider
-                  label="甜度 (Sweet)"
-                  value={score.taste.sweet}
-                  onChange={(v) => updateScore("taste", "sweet", v)}
-                />
-                <ScoreSlider
-                  label="苦度 (Bitter)"
-                  value={score.taste.bitter}
-                  onChange={(v) => updateScore("taste", "bitter", v)}
-                />
-                <ScoreSlider
-                  label="酸度 (Sour)"
-                  value={score.taste.sour}
-                  onChange={(v) => updateScore("taste", "sour", v)}
-                />
-                <ScoreSlider
-                  label="麦芽味 (Malt Flavor)"
-                  value={score.taste.maltFlavor}
-                  onChange={(v) => updateScore("taste", "maltFlavor", v)}
-                />
-                <ScoreSlider
-                  label="酒花味 (Hop Flavor)"
-                  value={score.taste.hopFlavor}
-                  onChange={(v) => updateScore("taste", "hopFlavor", v)}
-                />
-              </div>
+              <FlavorWheel values={flavorValues} onChange={updateFlavorValue} />
             )}
 
             {/* 步骤 4: 口感 */}
