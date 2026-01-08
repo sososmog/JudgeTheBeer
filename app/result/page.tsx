@@ -179,7 +179,7 @@ export default function ResultPage() {
     } else if (scores.mouthfeel >= 3) {
       comments.push("口感适中，整体表现稳定。");
     } else {
-      comments.push("口感方面略有不足，可能需要进一步优化。");
+      comments.push("口感方面略有不足，需要进一步优化。");
     }
 
     // 收口评价
@@ -193,7 +193,7 @@ export default function ResultPage() {
 
     // 酒精感
     if (finishData.alcoholWarmth === 1) {
-      comments.push("回温后酒精感明显，适合慢慢品味。");
+      comments.push("回温后酒精感明显，适合在低温状态下尽快饮用。");
     }
 
     return comments.join("");
