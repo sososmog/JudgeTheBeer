@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"  // 如果用 PostgreSQL 改成 "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 风味条目（简化版，先跑通）
+model Flavor {
+  id          String   @id @default(cuid())
+  name        String                    // 风味名称，如：葡萄柚
+  nameEn      String?                   // 英文名
+  category    String                    // 分类，如：水果、花香、异味
+  subCategory String?                   // 子分类，如：柑橘、热带水果
+  type        String   @default("good") // "good" 或 "bad"
+  description String?                   // 描述
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
