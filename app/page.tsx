@@ -1,25 +1,31 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-// Aceternity UI
 import { CometCard } from "@/components/ui/comet-card";
+import { Spotlight } from "@/components/ui/spotlight-new";
 
 export default function Home() {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-6" style={{ backgroundColor: "rgb(31, 31, 31)" }}>
+    <div className="flex-1 flex flex-col items-center justify-center p-6 relative overflow-hidden" style={{ backgroundColor: "rgb(31, 31, 31)" }}>
+      
+      {/* Spotlight 效果 - 琥珀色 */}
+      <Spotlight
+        gradientFirst="radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(38, 100%, 70%, .06) 0, hsla(38, 100%, 50%, .02) 50%, hsla(38, 100%, 45%, 0) 80%)"
+        gradientSecond="radial-gradient(50% 50% at 50% 50%, hsla(38, 100%, 70%, .04) 0, hsla(38, 100%, 50%, .015) 80%, transparent 100%)"
+        gradientThird="radial-gradient(50% 50% at 50% 50%, hsla(38, 100%, 70%, .03) 0, hsla(38, 100%, 45%, .01) 80%, transparent 100%)"
+      />
+
       {/* 标题区域 */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-amber-400 mb-4">
+      <div className="text-center mb-12 relative z-10 flex flex-col items-center">
+        <h1 className="text-5xl md:text-6xl font-bold text-amber-400 mb-4">
           🍺 JudgeTheBeer
         </h1>
-        <p className="text-amber-100 max-w-md">
+        <p className="text-amber-100 w-full max-w-[320px] md:max-w-[400px]">
           从外观、香气、味道、口感多维度品鉴一杯啤酒，生成专业评分报告
         </p>
       </div>
 
-      {/* 双卡片入口 */}
-      <div className="flex flex-row gap-6 items-center justify-center">
+      {/* 悬浮卡片 */}
+      {/* <div className="flex flex-row gap-6 items-center justify-center relative z-10">
 
-        {/* 新手导向 */}
         <Link href="/result" className="block w-[160px] md:w-[320px]">
           <CometCard className="p-4 md:p-8 h-40 md:h-80 cursor-pointer flex flex-col items-center justify-center text-center">
             <div className="text-2xl md:text-4xl mb-2 md:mb-4">📊</div>
@@ -28,7 +34,6 @@ export default function Home() {
           </CometCard>
         </Link>
 
-        {/* 生成专业风味报告 */}
         <Link href="/tasting" className="block w-[160px] md:w-[320px]">
           <CometCard className="p-4 md:p-8 h-40 md:h-80 cursor-pointer flex flex-col items-center justify-center text-center">
             <div className="text-2xl md:text-4xl mb-2 md:mb-4">🍺</div>
@@ -36,7 +41,30 @@ export default function Home() {
             <p className="text-xs md:text-base text-zinc-400">开始一次新的啤酒品鉴之旅</p>
           </CometCard>
         </Link>
+      </div> */}
+
+
+
+    {/* 双卡片入口 */}
+      <div className="flex flex-row gap-6 items-center justify-center relative z-10">
+
+        <Link href="/result" className="block w-[160px] md:w-[320px]">
+          <div className="p-4 md:p-8 h-40 md:h-80 rounded-2xl border border-zinc-700 bg-zinc-800/50 hover:bg-zinc-800 hover:border-zinc-600 transition-all cursor-pointer flex flex-col items-center justify-center text-center">
+            <div className="text-2xl md:text-4xl mb-2 md:mb-4">📊</div>
+            <h2 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">历史记录</h2>
+            <p className="text-xs md:text-base text-zinc-400">查看过往的品鉴报告</p>
+          </div>
+        </Link>
+
+        <Link href="/tasting" className="block w-[160px] md:w-[320px]">
+          <div className="p-4 md:p-8 h-40 md:h-80 rounded-2xl border border-zinc-700 bg-zinc-800/50 hover:bg-zinc-800 hover:border-zinc-600 transition-all cursor-pointer flex flex-col items-center justify-center text-center">
+            <div className="text-2xl md:text-4xl mb-2 md:mb-4">🍺</div>
+            <h2 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">开始品鉴</h2>
+            <p className="text-xs md:text-base text-zinc-400">开始一次新的啤酒品鉴之旅</p>
+          </div>
+        </Link>
       </div>
+
     </div>
   );
 }
