@@ -19,7 +19,7 @@ export default function Home() {
           🍺 JudgeTheBeer
         </h1>
         <p className="text-amber-100 w-full max-w-[320px] md:max-w-[400px]">
-          从外观、香气、味道、口感多维度品鉴一杯啤酒，生成专业评分报告
+          从外观、香气、味道、口感多维度品鉴，生成UT评价
         </p>
       </div>
 
@@ -48,19 +48,19 @@ export default function Home() {
     {/* 双卡片入口 */}
       <div className="flex flex-row gap-6 items-center justify-center relative z-10">
 
-        <Link href="/result" className="block w-[160px] md:w-[320px]">
+        <Link href="/starter" className="block w-[160px] md:w-[320px]">
           <div className="p-4 md:p-8 h-40 md:h-80 rounded-2xl border border-zinc-700 bg-zinc-800/50 hover:bg-zinc-800 hover:border-zinc-600 transition-all cursor-pointer flex flex-col items-center justify-center text-center">
-            <div className="text-2xl md:text-4xl mb-2 md:mb-4">📊</div>
-            <h2 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">历史记录</h2>
-            <p className="text-xs md:text-base text-zinc-400">查看过往的品鉴报告</p>
+            <div className="text-2xl md:text-4xl mb-2 md:mb-4">➡️</div>
+            <h2 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">我是新手</h2>
+            <p className="text-xs md:text-base text-zinc-400">带你更加了解一杯啤酒</p>
           </div>
         </Link>
 
         <Link href="/tasting" className="block w-[160px] md:w-[320px]">
           <div className="p-4 md:p-8 h-40 md:h-80 rounded-2xl border border-zinc-700 bg-zinc-800/50 hover:bg-zinc-800 hover:border-zinc-600 transition-all cursor-pointer flex flex-col items-center justify-center text-center">
             <div className="text-2xl md:text-4xl mb-2 md:mb-4">🍺</div>
-            <h2 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">开始品鉴</h2>
-            <p className="text-xs md:text-base text-zinc-400">开始一次新的啤酒品鉴之旅</p>
+            <h2 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">我很了解</h2>
+            <p className="text-xs md:text-base text-zinc-400">从更加细分的风味评价一杯啤酒</p>
           </div>
         </Link>
       </div>
