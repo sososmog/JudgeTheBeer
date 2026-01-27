@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { MultiStepLoader } from "@/components/ui/multi-step-loader";
+import { FocusCards } from "@/components/ui/focus-cards";
 
 const cards = [
   { id: 1, title: "Hazy IPA", description: "IPA/Pale Ale/Double IPA/Triple IPA", image: "/img/hazy.png", href: "/starter/flow-1" },
@@ -13,19 +15,61 @@ const cards = [
   { id: 6, title: "果泥", description: "TBD", image: "/img/fruit.png", href: "/starter/flow-6" },
 ];
 
+// MultiStepLoader 的加载步骤
+const loadingSteps = [
+  { text: "挑一个你喜欢的杯子..." },
+  { text: "用一个合适的角度倒满整杯..." },
+  { text: "准备好了吗？" },
+  { text: "让我们开始吧..." },
+];
+
 export default function StarterPage() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [loadingKey, setLoadingKey] = useState(0);
+  const [targetHref, setTargetHref] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleCardClick = (card: typeof cards[0], e: React.MouseEvent) => {
-    if (!card.href) {
-      e.preventDefault();
+  const handleCardClick = (card: typeof cards[0]) => {
+    if (card.href) {
+      // 如果是 Hazy IPA (flow-1)，显示 loader
+      if (card.href === "/starter/flow-1") {
+        setLoadingKey((k) => k + 1); // 重置 loader 状态
+        setTargetHref(card.href);
+        setLoading(true);
+      } else {
+        // 其他卡片直接跳转或显示 TBD
+        router.push(card.href);
+      }
+    } else {
       alert("TBD");
     }
   };
 
+  // loader 完成后跳转
+  useEffect(() => {
+    if (loading && targetHref) {
+      const totalDuration = loadingSteps.length * 800; // 步骤数 × duration
+      const timer = setTimeout(() => {
+        setLoading(false);
+        router.push(targetHref);
+      }, totalDuration);
+
+      return () => clearTimeout(timer);
+    }
+  }, [loading, targetHref, router]);
+
   return (
     <div className="min-h-screen bg-zinc-900 py-12 px-4 md:px-8">
+      {/* MultiStepLoader */}
+      <MultiStepLoader
+        key={loadingKey}
+        loadingStates={loadingSteps}
+        loading={loading}
+        duration={800}
+        loop={false}
+      />
+
       {/* 返回按钮 */}
       <div className="max-w-6xl mx-auto mb-8">
         <Link href="/" className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors">
@@ -48,13 +92,7 @@ export default function StarterPage() {
           {cards.map((card, index) => (
             <div
               key={card.id}
-              onClick={(e) => {
-                if (card.href) {
-                  router.push(card.href);
-                } else {
-                  alert("TBD");
-                }
-              }}
+              onClick={() => handleCardClick(card)}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
               className={`
