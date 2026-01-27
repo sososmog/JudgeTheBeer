@@ -25,17 +25,17 @@ const flowData: Record<string, FlowNode> = {
     id: "smell_direction",
     question: "你更愿意用什么来描述香味的主要走向？",
     options: [
-      { label: "没有酸感的甜", next: "sweet_type", value: "", image: "/img/" },
-      { label: "酸甜（复合果汁感）", next: "sour_sweet", value: "", image: "/img/" },
-      { label: "苦涩的清香/辛辣感", next: "bitter_spicy", value: "", image: "/img/" },
+      { label: "没有酸感的甜", next: "sweet_type", value: "没有酸感的甜", image: "/img/sweet.png" },
+      { label: "酸甜（复合果汁感）", next: "sour_sweet", value: "", image: "/img/sour_sweet.png" },
+      { label: "苦涩的清香/辛辣感", next: "bitter_spicy", value: "", image: "/img/spicy_bitter.png" },
     ],
   },
   sweet_type: {
     id: "sweet_type",
     question: "你对于甜度的形容？",
     options: [
-      { label: "水果熟透的甜", next: "tropical_fruit", value: "", image: "/img/" },
-      { label: "柔和的粉甜", next: "stone_fruit", value: "", image: "/img/" },
+      { label: "水果熟透的甜", next: "tropical_fruit", value: "", image: "/img/sweet_heavy.png" },
+      { label: "柔和的粉甜", next: "stone_fruit", value: "", image: "/img/sweet_light.png" },
     ],
   },
   tropical_fruit: {
@@ -43,7 +43,7 @@ const flowData: Record<string, FlowNode> = {
     question: "热带水果类 (Tropical Fruit) - 具体是哪一种香气？",
     options: [
       { label: "芒果", next: "alcohol_check", value: "芒果", image: "/img/mango.jpg" },
-      { label: "凤梨（菠萝）", next: "alcohol_check", value: "凤梨", image: "/img/pineapple.jpg" },
+      { label: "凤梨（菠萝）", next: "alcohol_check", value: "凤梨", image: "/img/pineapple.png" },
       { label: "百香果", next: "alcohol_check", value: "百香果", image: "/img/passionfruit.jpg" },
       { label: "番石榴", next: "alcohol_check", value: "番石榴", image: "/img/guava.png" },
       { label: "木瓜", next: "alcohol_check", value: "木瓜", image: "/img/papaya.png" },
@@ -65,8 +65,8 @@ const flowData: Record<string, FlowNode> = {
     id: "sour_sweet",
     question: "酸甜（复合果汁感）- 更偏向哪种？",
     options: [
-      { label: "甜", next: "sweet_type", value: "", image: "/img/" },
-      { label: "酸", next: "citrus", value: "", image: "/img/" },
+      { label: "甜", next: "sweet_type", value: "", image: "/img/ss_sweet.png" },
+      { label: "酸", next: "citrus", value: "", image: "/img/ss_sour.png" },
     ],
   },
   citrus: {
@@ -85,7 +85,7 @@ const flowData: Record<string, FlowNode> = {
     question: "植物与辛辣类 (Vegetal & Resin)",
     options: [
       { label: "刚割下的青草、松针、碎叶子", next: "vegetal_detail", value: "刚割下的青草、松针、碎叶子", image: "/img/bitter_spicy_1.png" },
-      { label: "类似白胡椒或淡淡的辛香料味", next: "vegetal_detail", value: "", image: "/img/" },
+      { label: "类似白胡椒或淡淡的辛香料味", next: "vegetal_detail", value: "", image: "/img/resin.png" },
     ],
   },
   vegetal_detail: {
