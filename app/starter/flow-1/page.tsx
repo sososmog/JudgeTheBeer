@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { FocusCards } from "@/components/ui/focus-cards";
 
+// Yes or No
+import { DecisionLayout } from "@/components/ui/decision-layout";
+import { X, Check } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+
 // 流程节点数据结构
 interface FlowNode {
   id: string;
@@ -100,18 +106,18 @@ const flowData: Record<string, FlowNode> = {
     id: "alcohol_check",
     question: "是否有酒精味？",
     options: [
-      { label: "是", next: "smell_end" },
-      { label: "否", next: "smell_end" },
+      { label: "是", next: "taste_start" },
+      { label: "否", next: "taste_start" },
     ],
   },
-  smell_end: {
-    id: "smell_end",
-    question: "闻香结束",
-    options: [{ label: "开始品尝", next: "taste_start" }],
-  },
+  // smell_end: {
+  //   id: "smell_end",
+  //   question: "闻香结束",
+  //   options: [{ label: "开始品尝", next: "taste_start" }],
+  // },
   taste_start: {
     id: "taste_start",
-    question: "你尝到了什么？整口吞咽，感受初始味觉",
+    question: "闻香结束...吞咽一整口，感受初始味觉",
     options: [{ label: "继续", next: "initial_taste" }],
   },
   initial_taste: {
@@ -379,6 +385,27 @@ const flowData: Record<string, FlowNode> = {
   },
 };
 
+// Yes or No
+const decisionNodes: Record<string, {
+  options: [
+    { title: string; description?: string; icon: LucideIcon; colorClass: string; isRecommended?: boolean },
+    { title: string; description?: string; icon: LucideIcon; colorClass: string; isRecommended?: boolean }
+  ]
+}> = {
+  vegetal_detail: {
+    options: [
+      { title: "否", description: "没有其他描述", icon: X, colorClass: "red" },
+      { title: "是，还有甜感或酸感", description: "返回重新选择香味走向", icon: Check, colorClass: "amber", isRecommended: true },
+    ]
+  },
+  alcohol_check: {
+    options: [
+      { title: "是", description: "有酒精味", icon: Check, colorClass: "amber" },
+      { title: "否", description: "没有酒精味", icon: X, colorClass: "zinc" },
+    ]
+  },
+};
+
 export default function FlowPage() {
   const [currentNode, setCurrentNode] = useState("start");
   const [history, setHistory] = useState<string[]>([]);
@@ -413,25 +440,102 @@ export default function FlowPage() {
   onClick: () => handleSelect(option),
   }));
 
-  // start 节点使用 WavyBackground 特殊渲染
-  if (currentNode === "start") {
+  // // start 节点使用 WavyBackground 特殊渲染
+  // if (currentNode === "start") {
+  //   return (
+  //     <WavyBackground
+  //       containerClassName="flex-1 w-full"
+  //       className="flex flex-col items-center justify-center"
+  //       colors={["#F59E0B", "#D97706", "#FBBF24", "#FEF3C7", "#FDE68A"]}
+  //       backgroundFill="#181818"
+  //     >
+  //       <h1 className="text-4xl md:text-6xl font-bold text-white text-center mb-8">
+  //         {node.question}
+  //       </h1>
+  //       <Button
+  //         onClick={() => handleSelect(node.options[0])}
+  //         className="px-16 py-3 text-lg md:text-xl h-auto"
+  //       >
+  //         {node.options[0].label}
+  //       </Button>
+  //     </WavyBackground>
+  //   );
+  // }
+
+  // 数组
+  const wavyNodes = ["start", "taste_start"];
+
+  // WavyBackground 节点
+  if (wavyNodes.includes(currentNode)) {
     return (
       <WavyBackground
-        containerClassName="flex-1 w-full"
-        className="flex flex-col items-center justify-center"
-        colors={["#F59E0B", "#D97706", "#FBBF24", "#FEF3C7", "#FDE68A"]}
-        backgroundFill="#181818"
-      >
-        <h1 className="text-4xl md:text-6xl font-bold text-white text-center mb-8">
-          {node.question}
-        </h1>
+      containerClassName="flex-1 w-full"
+      className="flex flex-col items-center justify-center"
+      colors={["#F59E0B", "#D97706", "#FBBF24", "#FEF3C7", "#FDE68A"]}
+      backgroundFill="#181818"
+    >
+      <h1 className="text-4xl md:text-6xl font-bold text-white text-center mb-8">
+        {node.question}
+      </h1>
+      <div className="flex gap-4">
+        {history.length > 0 && (
+          <Button
+            variant="outline"
+            onClick={handleBack}
+            className="px-8 py-3 text-lg md:text-xl h-auto border-white/50 bg-white/20 hover:bg-white/30 text-white"
+          >
+            ← 上一步
+          </Button>
+        )}
         <Button
           onClick={() => handleSelect(node.options[0])}
           className="px-16 py-3 text-lg md:text-xl h-auto"
         >
           {node.options[0].label}
         </Button>
-      </WavyBackground>
+      </div>
+    </WavyBackground>
+    );
+  }
+
+  // vegetal_detail 节点使用 DecisionLayout
+  // if (currentNode === "vegetal_detail") {
+  //   return (
+  //     <DecisionLayout
+  //       mainTitle={node.question}
+  //       options={[
+  //         {
+  //           title: "否",
+  //           description: "没有其他描述",
+  //           icon: X,
+  //           colorClass: "red",
+  //           action: () => handleSelect(node.options[0]),
+  //         },
+  //         {
+  //           title: "是，还有甜感或酸感",
+  //           description: "返回重新选择香味走向",
+  //           icon: Check,
+  //           colorClass: "amber",
+  //           action: () => handleSelect(node.options[1]),
+  //           isRecommended: true,
+  //         },
+  //       ]}
+  //     />
+  //   );
+  // }
+
+
+  // DecisionLayout 节点
+  if (decisionNodes[currentNode]) {
+    const config = decisionNodes[currentNode];
+    return (
+      <DecisionLayout
+        mainTitle={node.question}
+        options={[
+          { ...config.options[0], action: () => handleSelect(node.options[0]) },
+          { ...config.options[1], action: () => handleSelect(node.options[1]) },
+        ]}
+      />
     );
   }
 

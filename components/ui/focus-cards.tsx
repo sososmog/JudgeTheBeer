@@ -43,29 +43,32 @@ export const Card = React.memo(
       />
       
       {/* 内容 */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
-        <div
-          className={cn(
-            "text-lg md:text-xl font-semibold text-center transition-all duration-300",
-            hovered === index ? "text-amber-400" : "text-white"
-          )}
-        >
-          {card.title}
-        </div>
-        
-        {/* 箭头指示 */}
-        <div
-          className={cn(
-            "mt-4 flex items-center gap-2 text-amber-400 transition-all duration-300",
-            hovered === index ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-          )}
-        >
-          <span className="text-sm font-medium">选择</span>
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
-      </div>
+<div className="absolute inset-0 flex flex-col items-center justify-center p-6">
+  <div
+    className={cn(
+      "relative text-lg md:text-xl text-center transition-all duration-300 text-white px-6 py-4 rounded-xl",
+      hovered === index ? "font-extrabold" : "font-semibold"
+    )}
+    style={{ 
+      background: "radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%)"
+    }}
+  >
+    {card.title}
+  </div>
+  
+  {/* 箭头指示 */}
+  <div
+    className={cn(
+      "mt-4 flex items-center gap-2 text-white transition-all duration-300",
+      hovered === index ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+    )}
+  >
+    <span className="text-sm font-medium">选择</span>
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+    </svg>
+  </div>
+</div>
 
       {/* 边框 */}
       <div
