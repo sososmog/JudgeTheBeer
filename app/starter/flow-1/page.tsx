@@ -134,58 +134,73 @@ const flowData: Record<string, FlowNode> = {
     id: "taste_citrus_detail",
     question: "你怎么去形容这种味道？",
     options: [
-      { label: "锐利酸爽，柠檬类", next: "taste_citrus_specific", value: "", image: "/img/flow-1/" },
-      { label: "苦甜交织，柚子类", next: "taste_citrus_specific", value: "", image: "/img/flow-1/" },
-      { label: "甜美多汁，柑橘类", next: "taste_citrus_specific", value: "", image: "/img/flow-1/" },
+      { label: "锐利酸爽，柠檬类", next: "taste_citrus_specific", value: "", image: "/img/flow-1/citrus_1.png" },
+      { label: "苦甜交织，柚子类", next: "taste_citrus_specific", value: "", image: "/img/flow-1/pomelo.png" },
+      { label: "甜美多汁，柑橘类", next: "taste_citrus_specific", value: "", image: "/img/flow-1/citrus_3.png" },
     ],
   },
   taste_citrus_specific: {
     id: "taste_citrus_specific",
-    question: "具体风味",
+    question: "选择具体风味",
+    type: "multi",  //多选
     options: [
       { label: "青柠/柠檬草", next: "mouth_feel", value: "", image: "/img/flow-1/lemon_grass.png" },
-      { label: "红西柚/佛手柑", next: "mouth_feel", value: "", image: "/img/flow-1/bergamot.png" },
-      { label: "血橙/金桔", next: "mouth_feel", value: "", image: "/img/flow-1/bloodorange_kumquat.png" },
+      { label: "红西柚", next: "mouth_feel", value: "", image: "/img/flow-1/red_grapefruit.png" },
+      { label: "佛手柑", next: "mouth_feel", value: "", image: "/img/flow-1/bergamot.png" },
+      { label: "血橙", next: "mouth_feel", value: "", image: "/img/flow-1/bloodorange.png" },
+      { label: "金桔", next: "mouth_feel", value: "", image: "/img/flow-1/kumquat.png" },
     ],
   },
   taste_tropical_detail: {
     id: "taste_tropical_detail",
     question: "你怎么去形容这种味道？",
     options: [
-      { label: "浓郁厚重，高糖分", next: "taste_tropical_specific", value: "", image: "/img/flow-1/" },
-      { label: "甜中带酸，果汁感", next: "taste_tropical_specific", value: "", image: "/img/flow-1/" },
+      { label: "浓郁厚重，高糖分", next: "taste_tropical_specific", value: "", image: "/img/flow-1/sweet.png" },
+      { label: "甜中带酸，果汁感", next: "taste_tropical_specific", value: "", image: "/img/flow-1/sour_sweet.png" },
       { label: "其他风味（梨/草莓/椰子）", next: "taste_tropical_specific", value: "", image: "/img/flow-1/pear_coconut.png" },
     ],
   },
   taste_tropical_specific: {
     id: "taste_tropical_specific",
-    question: "具体风味",
+    question: "选择具体风味",
+    type: "multi",  //多选
     options: [
       { label: "芒果/木瓜", next: "mouth_feel", value: "", image: "/img/flow-1/mango_papaya.png" },
-      { label: "百香果/菠萝", next: "mouth_feel", value: "", image: "/img/flow-1/passionfruit_pineapple.png" },
-      { label: "番石榴/椰子/奶油", next: "mouth_feel", value: "", image: "/img/flow-1/cream_coconut.png" },
+      { label: "百香果", next: "mouth_feel", value: "", image: "/img/flow-1/passionfruit.jpg" },
+      { label: "菠萝", next: "mouth_feel", value: "", image: "/img/flow-1/pineapple.png" },
+      { label: "番石榴", next: "mouth_feel", value: "", image: "/img/flow-1/guava.png" },
+      { label: "梨", next: "mouth_feel", value: "", image: "/img/flow-1/pear.png" },
+      { label: "草莓", next: "mouth_feel", value: "", image: "/img/flow-1/strawberry.png" },
+      { label: "椰子", next: "mouth_feel", value: "", image: "/img/flow-1/coconut.png" },
+      { label: "奶油", next: "mouth_feel", value: "", image: "/img/flow-1/cream.png" },
     ],
   },
   taste_stone_detail: {
     id: "taste_stone_detail",
     question: "你怎么去形容这种味道？",
     options: [
-      { label: "圆润肉质，水蜜桃/黄桃", next: "taste_stone_specific", value: "", image: "/img/flow-1/" },
-      { label: "微酸果酱，杏/油桃", next: "taste_stone_specific", value: "", image: "/img/flow-1/" },
-      { label: "清甜甜果，哈密瓜/香梨", next: "taste_stone_specific", value: "", image: "/img/flow-1/" },
-      { label: "加工甜香，软糖/棉花糖", next: "taste_stone_specific", value: "", image: "/img/flow-1/" },
-      { label: "轻盈干爽，冰白葡萄酒", next: "taste_stone_specific", value: "", image: "/img/flow-1/" },
+      { label: "圆润肉质，水蜜桃/黄桃", next: "taste_stone_specific", value: "", image: "/img/flow-1/taste_stone_1.png" },
+      { label: "微酸果酱，杏/油桃", next: "taste_stone_specific", value: "", image: "/img/flow-1/taste_stone_2.png" },
+      { label: "清甜水果，哈密瓜/香梨", next: "taste_stone_specific", value: "", image: "/img/flow-1/taste_stone_3.png" },
+      { label: "加工甜香，软糖/棉花糖", next: "taste_stone_specific", value: "", image: "/img/flow-1/taste_stone_4.png" },
+      { label: "轻盈干爽，冰白葡萄酒", next: "taste_stone_specific", value: "", image: "/img/flow-1/taste_stone_5.png" },
     ],
   },
   taste_stone_specific: {
     id: "taste_stone_specific",
-    question: "具体风味",
+    question: "选择具体风味",
+    type: "multi",  //多选
     options: [
-      { label: "水蜜桃皮/白桃肉", next: "mouth_feel", value: "", image: "/img/flow-1/" },
-      { label: "黄杏/杏脯/油桃/果酱", next: "mouth_feel", value: "", image: "/img/flow-1/" },
-      { label: "哈密瓜/甜甜/香梨", next: "mouth_feel", value: "", image: "/img/flow-1/" },
-      { label: "水果软糖/棉花糖/香草", next: "mouth_feel", value: "", image: "/img/flow-1/" },
-      { label: "冰干白/长相思/醋栗", next: "mouth_feel", value: "", image: "/img/flow-1/" },
+      { label: "水蜜桃皮/白桃肉", next: "mouth_feel", value: "", image: "/img/flow-1/peach-peel.png" },
+      { label: "黄杏/杏脯", next: "mouth_feel", value: "", image: "/img/flow-1/apricot_preserve.png" },
+      { label: "油桃", next: "mouth_feel", value: "", image: "/img/flow-1/nectarine.png" },
+      { label: "果酱", next: "mouth_feel", value: "", image: "/img/flow-1/jam.png" },
+      { label: "哈密瓜/甜瓜", next: "mouth_feel", value: "", image: "/img/flow-1/melon.png" },
+      { label: "香梨", next: "mouth_feel", value: "", image: "/img/flow-1/pear.png" },
+      { label: "水果软糖/棉花糖", next: "mouth_feel", value: "", image: "/img/flow-1/taste_stone_4.png" },
+      { label: "香草/香草荚", next: "mouth_feel", value: "", image: "/img/flow-1/vanilla.png" },
+      { label: "冰干白/长相思", next: "mouth_feel", value: "", image: "/img/flow-1/taste_stone_5.png" },
+      { label: "醋栗", next: "mouth_feel", value: "", image: "/img/flow-1/currant_mix.png" },
     ],
   },
   taste_hop_detail: {
@@ -194,18 +209,19 @@ const flowData: Record<string, FlowNode> = {
     options: [
       { label: "清新木质，松针/冷杉", next: "taste_hop_specific" , value: "", image: "/img/flow-1/pine.webp"},
       { label: "碎叶青草，辛辣感", next: "taste_hop_specific" , value: "", image: "/img/flow-1/grassy.webp"},
-      { label: "阴湿泥土，树脂感", next: "taste_hop_specific", value: "", image: "/img/flow-1/" },
-      { label: "辛辣香料，刺激灼烧", next: "taste_hop_specific", value: "", image: "/img/flow-1/" },
+      { label: "阴湿泥土，树脂感", next: "taste_hop_specific", value: "", image: "/img/flow-1/dank.png" },
+      { label: "辛辣香料，刺激灼烧", next: "taste_hop_specific", value: "", image: "/img/flow-1/spicy.png" },
     ],
   },
   taste_hop_specific: {
     id: "taste_hop_specific",
-    question: "具体风味",
+    question: "选择具体风味",
+    type: "multi",  //多选
     options: [
-      { label: "松针/冷杉/雪松/松脂", next: "mouth_feel", value: "", image: "/img/flow-1/" },
-      { label: "青草味/绿色/辛辣", next: "mouth_feel", value: "", image: "/img/flow-1/" },
-      { label: "阴冷潮湿/树脂/大麻", next: "mouth_feel", value: "", image: "/img/flow-1/" },
-      { label: "黑白胡椒/薄荷/温热", next: "mouth_feel", value: "", image: "/img/flow-1/" },
+      { label: "松针/冷杉/雪松/松脂", next: "mouth_feel", value: "", image: "/img/flow-1/pine.webp" },
+      { label: "青草味/绿色/辛辣", next: "mouth_feel", value: "", image: "/img/flow-1/grassy.webp" },
+      { label: "阴冷潮湿/树脂/大麻", next: "mouth_feel", value: "", image: "/img/flow-1/dank.png" },
+      { label: "黑白胡椒/薄荷/温热", next: "mouth_feel", value: "", image: "/img/flow-1/spicy.png" },
     ],
   },
   mouth_feel: {
@@ -410,6 +426,7 @@ export default function FlowPage() {
   const [currentNode, setCurrentNode] = useState("start");
   const [history, setHistory] = useState<string[]>([]);
   const [selections, setSelections] = useState<Record<string, string>>({});
+  const [multiSelectIndices, setMultiSelectIndices] = useState<number[]>([]);
 
   const node = flowData[currentNode];
 
@@ -423,6 +440,19 @@ export default function FlowPage() {
     if (history.length > 0) {
       const prev = history[history.length - 1];
       setHistory((h) => h.slice(0, -1));
+      
+      // 如果返回的是多选节点，恢复之前的选择
+      const prevNode = flowData[prev];
+      if (prevNode.type === "multi" && selections[prev]) {
+        const selectedValues = selections[prev].split(", ");
+        const indices = prevNode.options
+          .map((opt, i) => selectedValues.includes(opt.value || opt.label) ? i : -1)
+          .filter(i => i !== -1);
+        setMultiSelectIndices(indices);
+      } else {
+        setMultiSelectIndices([]);
+      }
+      
       setCurrentNode(prev);
     }
   };
@@ -431,6 +461,19 @@ export default function FlowPage() {
     setCurrentNode("start");
     setHistory([]);
     setSelections({});
+    setMultiSelectIndices([]);
+  };
+
+  // 多选确认处理函数
+  const handleMultiSelectConfirm = () => {
+    const selectedValues = multiSelectIndices
+      .map(i => node.options[i].value || node.options[i].label)
+      .join(", ");
+    
+    setSelections((prev) => ({ ...prev, [currentNode]: selectedValues }));
+    setHistory((prev) => [...prev, currentNode]);
+    setCurrentNode(node.options[0].next);
+    setMultiSelectIndices([]);
   };
 
   // 将选项转换为 FocusCards 需要的格式
@@ -572,7 +615,17 @@ export default function FlowPage() {
 
         {/* 选项卡片 - FocusCards */}
         {node.type !== "end" ? (
+          node.type === "multi" ? (
+            <FocusCards 
+              cards={focusCards} 
+              multiSelect={true}
+              selectedIndices={multiSelectIndices}
+              onSelectionChange={setMultiSelectIndices}
+              onConfirm={handleMultiSelectConfirm}
+            />
+        ) : (
           <FocusCards cards={focusCards} />
+        )
         ) : (
           <div className="max-w-2xl mx-auto text-center space-y-6">
             {/* 显示选择记录 */}
