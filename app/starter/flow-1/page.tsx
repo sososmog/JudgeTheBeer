@@ -11,13 +11,16 @@ import { DecisionLayout } from "@/components/ui/decision-layout";
 import { X, Check } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+//taste-analyzer
+import { TasteAnalyzer } from "@/components/ui/taste-analyzer";
+
 
 // 流程节点数据结构
 interface FlowNode {
   id: string;
   question: string;
   options: { label: string; next: string; value?: string; image?: string }[];
-  type?: "single" | "multi" | "end";
+  type?: "single" | "multi" | "end" | "taste";
 }
 
 // 根据 drawio 文件构建的流程数据
@@ -224,42 +227,54 @@ const flowData: Record<string, FlowNode> = {
       { label: "黑白胡椒/薄荷/温热", next: "mouth_feel", value: "", image: "/img/flow-1/spicy.png" },
     ],
   },
+  //味觉感受页面
   mouth_feel: {
     id: "mouth_feel",
     question: "再喝一口，感受前段入口，停留，铺满整个舌面",
+    type: "taste",  // 新增类型
     options: [
-      { label: "舌尖：甜感先出", next: "sweet_feel", value: "", image: "/img/flow-1/" },
-      { label: "舌侧：酸感先出", next: "sour_feel", value: "", image: "/img/flow-1/" },
-      { label: "舌根：苦感先出", next: "bitter_feel", value: "", image: "/img/flow-1/" },
+      { label: "", next: "nose_aroma" },  // 只需要一个 next
     ],
   },
-  sweet_feel: {
-    id: "sweet_feel",
-    question: "甜感程度",
-    options: [
-      { label: "甜感先出", next: "nose_aroma", value: "", image: "/img/flow-1/" },
-      { label: "有甜感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
-      { label: "无甜感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
-    ],
-  },
-  sour_feel: {
-    id: "sour_feel",
-    question: "酸感程度",
-    options: [
-      { label: "酸感先出", next: "nose_aroma", value: "", image: "/img/flow-1/" },
-      { label: "有酸感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
-      { label: "无酸感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
-    ],
-  },
-  bitter_feel: {
-    id: "bitter_feel",
-    question: "苦感程度",
-    options: [
-      { label: "苦感先出", next: "nose_aroma", value: "", image: "/img/flow-1/" },
-      { label: "有苦感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
-      { label: "无苦感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
-    ],
-  },
+  // Old flow:
+  // mouth_feel: {
+  //   id: "mouth_feel",
+  //   question: "再喝一口，感受前段入口，停留，铺满整个舌面",
+  //   options: [
+  //     { label: "舌尖：甜感先出", next: "sweet_feel", value: "", image: "/img/flow-1/" },
+  //     { label: "舌侧：酸感先出", next: "sour_feel", value: "", image: "/img/flow-1/" },
+  //     { label: "舌根：苦感先出", next: "bitter_feel", value: "", image: "/img/flow-1/" },
+  //   ],
+  // },
+  // sweet_feel: {
+  //   id: "sweet_feel",
+  //   question: "甜感程度",
+  //   options: [
+  //     { label: "甜感先出", next: "nose_aroma", value: "", image: "/img/flow-1/" },
+  //     { label: "有甜感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
+  //     { label: "无甜感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
+  //   ],
+  // },
+  // sour_feel: {
+  //   id: "sour_feel",
+  //   question: "酸感程度",
+  //   options: [
+  //     { label: "酸感先出", next: "nose_aroma", value: "", image: "/img/flow-1/" },
+  //     { label: "有酸感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
+  //     { label: "无酸感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
+  //   ],
+  // },
+  // bitter_feel: {
+  //   id: "bitter_feel",
+  //   question: "苦感程度",
+  //   options: [
+  //     { label: "苦感先出", next: "nose_aroma", value: "", image: "/img/flow-1/" },
+  //     { label: "有苦感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
+  //     { label: "无苦感", next: "nose_aroma", value: "", image: "/img/flow-1/" },
+  //   ],
+  // },
+
+  // YON
   nose_aroma: {
     id: "nose_aroma",
     question: "感受鼻腔香气，是否修改香味描述？",
@@ -296,6 +311,7 @@ const flowData: Record<string, FlowNode> = {
     question: "再喝一口，感受尾段收口，味道消失的方式",
     options: [{ label: "继续", next: "bitter_finish" }],
   },
+  // YON
   bitter_finish: {
     id: "bitter_finish",
     question: "苦味收口",
@@ -420,6 +436,19 @@ const decisionNodes: Record<string, {
       { title: "否", description: "没有酒精味", icon: X, colorClass: "zinc" },
     ]
   },
+  nose_aroma: {
+    options: [
+      { title: "是", description: "返回修改", icon: Check, colorClass: "amber" },
+      { title: "否", description: "继续", icon: X, colorClass: "amber" },
+    ],
+  },
+  //TODO
+  bitter_finish: {
+    options: [
+      { title: "时间短，干净利落", description: "返回修改", icon: Check, colorClass: "amber" },
+      { title: "时间长，拖沓绵长", description: "继续", icon: X, colorClass: "amber" },
+    ],
+  },
 };
 
 export default function FlowPage() {
@@ -427,6 +456,8 @@ export default function FlowPage() {
   const [history, setHistory] = useState<string[]>([]);
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [multiSelectIndices, setMultiSelectIndices] = useState<number[]>([]);
+    // taste-analyzer
+  const [tasteSelections, setTasteSelections] = useState<Record<string, string>>({});
 
   const node = flowData[currentNode];
 
@@ -441,8 +472,8 @@ export default function FlowPage() {
       const prev = history[history.length - 1];
       setHistory((h) => h.slice(0, -1));
       
-      // 如果返回的是多选节点，恢复之前的选择
       const prevNode = flowData[prev];
+      // 如果返回的是多选节点，恢复之前的选择
       if (prevNode.type === "multi" && selections[prev]) {
         const selectedValues = selections[prev].split(", ");
         const indices = prevNode.options
@@ -457,11 +488,14 @@ export default function FlowPage() {
     }
   };
 
+
+
   const handleReset = () => {
     setCurrentNode("start");
     setHistory([]);
     setSelections({});
     setMultiSelectIndices([]);
+    setTasteSelections({});
   };
 
   // 多选确认处理函数
@@ -474,6 +508,24 @@ export default function FlowPage() {
     setHistory((prev) => [...prev, currentNode]);
     setCurrentNode(node.options[0].next);
     setMultiSelectIndices([]);
+  };
+
+  const handleTasteSubmit = (tasteData: Record<string, string>) => {
+    // 转换为可读的字符串保存
+    const tasteLabels: Record<string, string> = {
+      'sweet-first': '甜感先出', 'sweet-yes': '有甜感', 'sweet-no': '无甜感',
+      'sour-first': '酸感先出', 'sour-yes': '有酸感', 'sour-no': '无酸感',
+      'bitter-first': '苦感先出', 'bitter-yes': '有苦感', 'bitter-no': '无苦感',
+    };
+    
+    const result = Object.entries(tasteData)
+      .map(([zone, optionId]) => tasteLabels[optionId] || optionId)
+      .join(", ");
+    
+    setSelections((prev) => ({ ...prev, [currentNode]: result }));
+    setTasteSelections(tasteData);
+    setHistory((prev) => [...prev, currentNode]);
+    setCurrentNode(node.options[0].next);
   };
 
   // 将选项转换为 FocusCards 需要的格式
@@ -506,7 +558,7 @@ export default function FlowPage() {
   // }
 
   // 数组
-  const wavyNodes = ["start", "taste_start"];
+  const wavyNodes = ["start", "taste_start", "nose_aroma"];
 
   // WavyBackground 节点
   if (wavyNodes.includes(currentNode)) {
@@ -578,6 +630,18 @@ export default function FlowPage() {
           { ...config.options[0], action: () => handleSelect(node.options[0]) },
           { ...config.options[1], action: () => handleSelect(node.options[1]) },
         ]}
+      />
+    );
+  }
+
+  // TasteAnalyzer 节点
+  if (node.type === "taste") {
+    return (
+      <TasteAnalyzer 
+        onSubmit={handleTasteSubmit}
+        onBack={handleBack}
+        showBack={history.length > 0}
+        initialSelections={tasteSelections}
       />
     );
   }
