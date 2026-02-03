@@ -127,29 +127,22 @@ export const WavyBackground = ({
         "flex flex-col items-center justify-center",
         containerClassName
       )}
+      // 使用黑色背景色填充blur缝隙
+      style={{ backgroundColor: backgroundFill || "#181818" }}
     >
-      {/* <canvas
-        className="absolute inset-0 z-0"
-        ref={canvasRef}
-        id="canvas"
-        style={{
-          ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
-        }}
-      ></canvas> */}
-
-      {/* 解决blur溢出 单独包裹canvas */}
+      {/* 单独包裹 canvas 的容器 */}
       <div className="absolute inset-0 overflow-hidden">
-      <canvas
-        ref={canvasRef}
-        id="canvas"
-        style={{
-          position: "absolute",
-          top: `-${blur * 3}px`,
-          left: `-${blur * 3}px`,
-          ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
-        }}
-      ></canvas>
-    </div>
+        <canvas
+          ref={canvasRef}
+          id="canvas"
+          style={{
+            position: "absolute",
+            top: `-${blur * 3}px`,
+            left: `-${blur * 3}px`,
+            ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
+          }}
+        ></canvas>
+      </div>
 
       <div className={cn("relative z-10", className)} {...props}>
         {children}
