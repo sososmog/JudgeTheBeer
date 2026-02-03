@@ -1,3 +1,4 @@
+/** @type {import('@opennextjs/cloudflare').OpenNextConfig} */
 const config = {
   default: {
     override: {
