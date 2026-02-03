@@ -28,7 +28,16 @@ export const DecisionLayout: React.FC<DecisionLayoutProps> = ({
   return (
     <div className="flex-1 bg-zinc-900 flex items-center justify-center p-6">
       <div className="w-full max-w-3xl text-center">
-        <h1 className="text-3xl md:text-5xl font-bold text-white mb-12">{mainTitle}</h1>
+        {/* 响应式换行 */}
+        <h1 className="text-3xl md:text-5xl font-bold text-white mb-12">
+          {mainTitle.split('\n').map((line, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && <br className="block sm:hidden" />}
+              {i > 0 && <span className="hidden sm:inline"> </span>}
+              {line}
+            </React.Fragment>
+          ))}
+        </h1>
         {subTitle && <p className="text-zinc-400 mb-12">{subTitle}</p>}
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

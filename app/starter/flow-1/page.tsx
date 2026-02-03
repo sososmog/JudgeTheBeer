@@ -42,7 +42,7 @@ const flowData: Record<string, FlowNode> = {
   },
   smell_direction: {
     id: "smell_direction",
-    question: "你更愿意用什么来描述香味的主要走向？",
+    question: "你更愿意用什么来描述\n香味的主要走向？",
     options: [
       { label: "没有酸感的甜", next: "sweet_type", value: "没有酸感的甜", image: "/img/flow-1/sweet.png" },
       { label: "酸甜(复合果汁感)", next: "sour_sweet", value: "", image: "/img/flow-1/sour_sweet.png" },
@@ -59,7 +59,7 @@ const flowData: Record<string, FlowNode> = {
   },
   tropical_fruit: {
     id: "tropical_fruit",
-    question: "热带水果类 (Tropical Fruit) - 具体是哪一种香气？",
+    question: "热带水果类 (Tropical Fruit) - 具体是哪一种\n香气？",
     options: [
       { label: "芒果", next: "alcohol_check", value: "芒果", image: "/img/flow-1/mango.jpg" },
       { label: "凤梨（菠萝）", next: "alcohol_check", value: "凤梨", image: "/img/flow-1/pineapple.png" },
@@ -70,7 +70,7 @@ const flowData: Record<string, FlowNode> = {
   },
   stone_fruit: {
     id: "stone_fruit",
-    question: "核果与浆果类 (Stone Fruit & Berry) - 具体是哪一种香气？",
+    question: "核果与浆果类 (Stone \nFruit & Berry) - 具体\n是哪一种香气？",
     options: [
       { label: "桃子/水蜜桃", next: "alcohol_check", value: "桃子", image: "/img/flow-1/peach.png" },
       { label: "杏", next: "alcohol_check", value: "杏", image: "/img/flow-1/apricot.png" },
@@ -82,7 +82,7 @@ const flowData: Record<string, FlowNode> = {
   },
   sour_sweet: {
     id: "sour_sweet",
-    question: "酸甜(复合果汁感)-更偏向哪种？",
+    question: "酸甜(复合果汁感)-\n更偏向哪种？",
     options: [
       { label: "甜", next: "sweet_type", value: "", image: "/img/flow-1/ss_sweet.png" },
       { label: "酸", next: "citrus", value: "", image: "/img/flow-1/ss_sour.png" },
@@ -90,7 +90,7 @@ const flowData: Record<string, FlowNode> = {
   },
   citrus: {
     id: "citrus",
-    question: "柑橘类 (Citrus) - 具体是哪一种香气？",
+    question: "柑橘类 (Citrus) - 具体\n是哪一种香气？",
     options: [
       { label: "葡萄柚（西柚）", next: "alcohol_check", value: "葡萄柚", image: "/img/flow-1/grapefruit.png" },
       { label: "甜橙", next: "alcohol_check", value: "甜橙", image: "/img/flow-1/orange.png" },
@@ -101,7 +101,7 @@ const flowData: Record<string, FlowNode> = {
   },
   bitter_spicy: {
     id: "bitter_spicy",
-    question: "植物与辛辣类 (Vegetal & Resin)",
+    question: "植物与辛辣类 \n(Vegetal & Resin)",
     options: [
       { label: "刚割下的青草、松针、碎叶子", next: "vegetal_detail", value: "刚割下的青草、松针、碎叶子", image: "/img/flow-1/bitter_spicy_1.png" },
       { label: "类似白胡椒或淡淡的辛香料味", next: "vegetal_detail", value: "", image: "/img/flow-1/resin.png" },
@@ -109,7 +109,7 @@ const flowData: Record<string, FlowNode> = {
   },
   vegetal_detail: {
     id: "vegetal_detail",
-    question: "在这种基调下是否有其他描述？",
+    question: "在这种基调下是否有\n其他描述？",
     options: [
       { label: "否", next: "alcohol_check" },
       { label: "是，还有甜感或酸感", next: "smell_direction" },
@@ -130,7 +130,7 @@ const flowData: Record<string, FlowNode> = {
   // },
   taste_start: {
     id: "taste_start",
-    question: "闻香结束...吞咽一整口，感受初始味觉",
+    question: "闻香结束... 吞咽一整口，感受初始味觉",
     options: [{ label: "继续", next: "initial_taste" }],
   },
   initial_taste: {
@@ -287,7 +287,7 @@ const flowData: Record<string, FlowNode> = {
   // YON
   nose_aroma: {
     id: "nose_aroma",
-    question: "感受鼻腔香气，是否修改香味描述？",
+    question: "感受鼻腔香气，\n是否修改香味描述？",
     options: [
       { label: "是，返回修改", next: "smell_direction" },
       { label: "否，继续", next: "body" },
@@ -296,7 +296,7 @@ const flowData: Record<string, FlowNode> = {
   // Wavy
   body: {
     id: "body",
-    question: "再喝一口，感受中段酒体厚度",
+    question: "再喝一口，感受中段\n酒体厚度",
     options: [{ label: "继续", next: "body_complexity" }],
   },
   body_complexity: {
@@ -360,7 +360,7 @@ const flowData: Record<string, FlowNode> = {
     options: [
       { label: "Single (低酒精度)", next: "alcohol_single" },
       { label: "Double/Imperial (中高酒精度)", next: "alcohol_double" },
-      { label: "Triple/Quadruple/More (高酒精度)", next: "alcohol_triple" },
+      { label: "Triple/Quad/More (高酒精度)", next: "alcohol_triple" },
     ],
   },
   alcohol_single: {
@@ -483,12 +483,12 @@ const ratingNodes: Record<string, { title: string; subtitle?: string; descriptio
   bitter_finish: { title: "苦味收口", subtitle: "", description: "苦味消失的方式" },
   sweet_finish: { title: "甜味收口", subtitle: "", description: "甜味收口的感受" },
   carbonation: { title: "碳酸感", subtitle: "", description: "气泡的强度" },
-  alcohol_single: { title: "酒精感评价", subtitle: "Single", description: "低酒精度下的酒精感知" },
-  alcohol_double: { title: "酒精感评价", subtitle: "Double/Imperial", description: "中高酒精度下的酒精感知" },
-  alcohol_triple: { title: "酒精感评价", subtitle: "Triple/Quadruple/More", description: "高酒精度下的酒精感知" },
+  alcohol_single: { title: "酒精感", subtitle: "Single", description: "低酒精度下的酒精感知" },
+  alcohol_double: { title: "酒精感", subtitle: "Double/Imperial", description: "中高酒精度下的酒精感知" },
+  alcohol_triple: { title: "酒精感", subtitle: "Triple/Quad/More", description: "高酒精度下的酒精感知" },
   drink_single: { title: "易饮性", subtitle: "Single", description: "低酒精度下的易饮程度" },
   drink_double: { title: "易饮性", subtitle: "Double/Imperial", description: "中高酒精度下的易饮程度" },
-  drink_triple: { title: "易饮性", subtitle: "Triple/Quadruple/More", description: "高酒精度下的易饮程度" },
+  drink_triple: { title: "易饮性", subtitle: "Triple/Quad/More", description: "高酒精度下的易饮程度" },
 };
 
 // 缓慢滚动至顶部 
@@ -840,7 +840,14 @@ export default function FlowPage() {
         {/* 问题标题 */}
         <div className="max-w-4xl mx-auto mb-12 text-center px-4">
           <h1 className="text-3xl md:text-5xl font-bold text-white">
-            {node.question}
+            {/* 移动端换行 */}
+            {node.question.split('\n').map((line, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <br className="block sm:hidden" />}
+                {i > 0 && <span className="hidden sm:inline"> </span>}
+                {line}
+              </React.Fragment>
+            ))}
           </h1>
         </div>
 
