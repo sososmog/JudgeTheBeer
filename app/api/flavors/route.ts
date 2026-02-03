@@ -45,7 +45,7 @@
 
 
 // 最简化测试
-export const runtime = 'edge'
+// export const runtime = 'edge'  // debug
 
 export async function GET() {
   return new Response(
