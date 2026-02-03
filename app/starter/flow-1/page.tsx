@@ -14,13 +14,18 @@ import type { LucideIcon } from "lucide-react";
 //taste-analyzer
 import { TasteAnalyzer } from "@/components/ui/taste-analyzer";
 
+//Rating (only use the last one)
+import { MultiStepRating } from "@/components/ui/rating-step";
+import { Wind, Droplets, Thermometer, Zap, GlassWater, Star } from "lucide-react";
+import { SingleRating } from "@/components/ui/rating-step";
+
 
 // 流程节点数据结构
 interface FlowNode {
   id: string;
   question: string;
   options: { label: string; next: string; value?: string; image?: string }[];
-  type?: "single" | "multi" | "end" | "taste";
+  type?: "single" | "multi" | "end" | "taste" | "rating";
 }
 
 // 根据 drawio 文件构建的流程数据
@@ -283,6 +288,7 @@ const flowData: Record<string, FlowNode> = {
       { label: "否，继续", next: "body" },
     ],
   },
+  // Wavy
   body: {
     id: "body",
     question: "再喝一口，感受中段酒体厚度",
@@ -291,127 +297,141 @@ const flowData: Record<string, FlowNode> = {
   body_complexity: {
     id: "body_complexity",
     question: "味道是否持续、复杂",
+    type: "rating",
     options: [
-      { label: "有支撑", next: "balance" },
-      { label: "一般", next: "balance" },
-      { label: "无支撑", next: "balance" },
+      { label: "有支撑", next: "balance", value: "0.2" },
+      { label: "一般", next: "balance", value: "0" },
+      { label: "无支撑", next: "balance", value: "-0.2" },
     ],
   },
   balance: {
     id: "balance",
     question: "味道是否平衡，没有哪一方面过于突出？",
+    type: "rating",
     options: [
-      { label: "好", next: "finish" },
-      { label: "一般", next: "finish" },
-      { label: "不好", next: "finish" },
+      { label: "好", next: "finish", value: "0.2" },
+      { label: "一般", next: "finish", value: "0" },
+      { label: "不好", next: "finish", value: "-0.2" },
     ],
   },
+  // Wavy
   finish: {
     id: "finish",
-    question: "再喝一口，感受尾段收口，味道消失的方式",
+    question: "再喝一口，感受尾段收口",
     options: [{ label: "继续", next: "bitter_finish" }],
   },
-  // YON
+
   bitter_finish: {
     id: "bitter_finish",
     question: "苦味收口",
+    type: "rating",
     options: [
-      { label: "时间短，干净利落", next: "sweet_finish" },
-      { label: "时间长，拖沓绵长", next: "sweet_finish" },
+      { label: "时间短，干净利落", next: "sweet_finish", value: "0.2" },
+      { label: "时间长，拖沓绵长", next: "sweet_finish", value: "-0.2" },
     ],
   },
   sweet_finish: {
     id: "sweet_finish",
     question: "甜味收口",
+    type: "rating",
     options: [
-      { label: "清爽，残糖少", next: "carbonation" },
-      { label: "平衡，甜苦抵消", next: "carbonation" },
-      { label: "余甜，残糖多", next: "carbonation" },
+      { label: "清爽，残糖少", next: "carbonation", value: "0.1" },
+      { label: "平衡，甜苦抵消", next: "carbonation", value: "0.1" },
+      { label: "余甜，残糖多", next: "carbonation", value: "0" },
     ],
   },
   carbonation: {
     id: "carbonation",
     question: "碳酸感",
+    type: "rating",
     options: [
-      { label: "强", next: "alcohol_feel" },
-      { label: "弱", next: "alcohol_feel" },
+      { label: "强", next: "alcohol_feel", value: "0.1" },
+      { label: "弱", next: "alcohol_feel", value: "0" },
     ],
   },
   alcohol_feel: {
     id: "alcohol_feel",
-    question: "酒精感：在当前温度下",
+    question: "选择当前IPA的酒精倍数：",
     options: [
-      { label: "Single (低酒精)", next: "alcohol_single" },
-      { label: "Double/Imperial (中高酒精)", next: "alcohol_double" },
-      { label: "Triple/Quadruple (高酒精)", next: "alcohol_triple" },
+      { label: "Single (低酒精度)", next: "alcohol_single" },
+      { label: "Double/Imperial (中高酒精度)", next: "alcohol_double" },
+      { label: "Triple/Quadruple/More (高酒精度)", next: "alcohol_triple" },
     ],
   },
   alcohol_single: {
     id: "alcohol_single",
     question: "Single 酒精感评价",
+    type: "rating",
     options: [
-      { label: "明显酒精刺激 (-1分)", next: "drinkability" },
-      { label: "微弱酒精感 (-0.5分)", next: "drinkability" },
-      { label: "完全包裹无酒精感 (+0.25分)", next: "drinkability" },
+      { label: "明显酒精刺激", next: "drink_single", value: "-1" },
+      { label: "微弱酒精感", next: "drink_single", value: "-0.5" },
+      { label: "完全包裹无酒精感", next: "drink_single", value: "0.25" },
     ],
   },
   alcohol_double: {
     id: "alcohol_double",
     question: "Double/Imperial 酒精感评价",
+    type: "rating",
     options: [
-      { label: "明显酒精刺激 (-0.5分)", next: "drinkability" },
-      { label: "微弱酒精感 (0分)", next: "drinkability" },
-      { label: "完全包裹无酒精感 (+0.25分)", next: "drinkability" },
+      { label: "明显酒精刺激", next: "drink_double", value: "-0.5" },
+      { label: "微弱酒精感", next: "drink_double", value: "0" },
+      { label: "完全包裹无酒精感", next: "drink_double", value: "0.25" },
     ],
   },
   alcohol_triple: {
     id: "alcohol_triple",
-    question: "Triple/Quadruple 酒精感评价",
+    question: "Triple/Quadruple/More 酒精感评价",
+    type: "rating",
     options: [
-      { label: "明显酒精刺激 (-0.2分)", next: "drinkability" },
-      { label: "微弱酒精感 (+0.2分)", next: "drinkability" },
-      { label: "完全包裹无酒精感 (+0.5分)", next: "drinkability" },
+      { label: "明显酒精刺激", next: "drink_triple", value: "-0.2" },
+      { label: "微弱酒精感", next: "drink_triple", value: "0.2" },
+      { label: "完全包裹无酒精感", next: "drink_triple", value: "0.5" },
     ],
   },
-  drinkability: {
-    id: "drinkability",
-    question: "易饮性评价",
-    options: [
-      { label: "Single (低酒精)", next: "drink_single" },
-      { label: "Double/Imperial (中高酒精)", next: "drink_double" },
-      { label: "Triple/Quadruple (高酒精)", next: "drink_triple" },
-    ],
-  },
+  //与alcohol_feel重复
+  // drinkability: {
+  //   id: "drinkability",
+  //   question: "易饮性评价",
+  //   options: [
+  //     { label: "Single (低酒精)", next: "drink_single" },
+  //     { label: "Double/Imperial (中高酒精)", next: "drink_double" },
+  //     { label: "Triple/Quadruple (高酒精)", next: "drink_triple" },
+  //   ],
+  // },
   drink_single: {
     id: "drink_single",
     question: "Single 易饮性",
+    type: "rating",
     options: [
-      { label: "无压力，易饮性好 (+0.1分)", next: "complete" },
-      { label: "一般 (0分)", next: "complete" },
-      { label: "压力大，易饮性差 (-0.5分)", next: "complete" },
+      { label: "无压力，易饮性好", next: "complete", value: "0.1" },
+      { label: "一般", next: "complete", value: "0" },
+      { label: "压力大，易饮性差", next: "complete", value: "-0.5" },
     ],
   },
   drink_double: {
     id: "drink_double",
     question: "Double/Imperial 易饮性",
+    type: "rating",
     options: [
-      { label: "无压力，易饮性好 (+0.25分)", next: "complete" },
-      { label: "一般 (+0.1分)", next: "complete" },
-      { label: "压力大，易饮性差 (-0.25分)", next: "complete" },
+      { label: "无压力，易饮性好", next: "complete", value: "0.25" },
+      { label: "一般", next: "complete", value: "0.1" },
+      { label: "压力大，易饮性差", next: "complete", value: "-0.25" },
     ],
   },
   drink_triple: {
     id: "drink_triple",
     question: "Triple/Quadruple 易饮性",
+    type: "rating",
     options: [
-      { label: "无压力，易饮性好 (+0.5分)", next: "complete" },
-      { label: "一般 (+0.25分)", next: "complete" },
-      { label: "压力大，易饮性差 (-0.1分)", next: "complete" },
+      { label: "无压力，易饮性好", next: "complete", value: "0.5" },
+      { label: "一般", next: "complete", value: "0.25" },
+      { label: "压力大，易饮性差", next: "complete", value: "-0.1" },
     ],
   },
+  // Wavy
   complete: {
     id: "complete",
-    question: "🎉 品鉴完成！",
+    question: "品鉴完成！",
     options: [],
     type: "end",
   },
@@ -443,12 +463,27 @@ const decisionNodes: Record<string, {
     ],
   },
   //TODO
-  bitter_finish: {
-    options: [
-      { title: "时间短，干净利落", description: "返回修改", icon: Check, colorClass: "amber" },
-      { title: "时间长，拖沓绵长", description: "继续", icon: X, colorClass: "amber" },
-    ],
-  },
+  // bitter_finish: {
+  //   options: [
+  //     { title: "时间短", description: "干净利落", icon: Check, colorClass: "amber" },
+  //     { title: "时间长", description: "拖沓绵长", icon: X, colorClass: "amber" },
+  //   ],
+  // },
+};
+
+// Rating Component
+const ratingNodes: Record<string, { title: string; subtitle?: string; description?: string }> = {
+  body_complexity: { title: "酒体复杂度", subtitle: "", description: "味道是否持续、复杂" },
+  balance: { title: "平衡度", subtitle: "", description: "味道是否平衡，没有哪一方面过于突出" },
+  bitter_finish: { title: "苦味收口", subtitle: "", description: "苦味消失的方式" },
+  sweet_finish: { title: "甜味收口", subtitle: "", description: "甜味收口的感受" },
+  carbonation: { title: "碳酸感", subtitle: "", description: "气泡的强度" },
+  alcohol_single: { title: "酒精感评价", subtitle: "Single", description: "低酒精度下的酒精感知" },
+  alcohol_double: { title: "酒精感评价", subtitle: "Double/Imperial", description: "中高酒精度下的酒精感知" },
+  alcohol_triple: { title: "酒精感评价", subtitle: "Triple/Quadruple/More", description: "高酒精度下的酒精感知" },
+  drink_single: { title: "易饮性", subtitle: "Single", description: "低酒精度下的易饮程度" },
+  drink_double: { title: "易饮性", subtitle: "Double/Imperial", description: "中高酒精度下的易饮程度" },
+  drink_triple: { title: "易饮性", subtitle: "Triple/Quadruple/More", description: "高酒精度下的易饮程度" },
 };
 
 export default function FlowPage() {
@@ -456,8 +491,10 @@ export default function FlowPage() {
   const [history, setHistory] = useState<string[]>([]);
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [multiSelectIndices, setMultiSelectIndices] = useState<number[]>([]);
-    // taste-analyzer
+  // taste-analyzer
   const [tasteSelections, setTasteSelections] = useState<Record<string, string>>({});
+  // 基础分 3.5
+  const [totalScore, setTotalScore] = useState(3.5); 
 
   const node = flowData[currentNode];
 
@@ -496,6 +533,7 @@ export default function FlowPage() {
     setSelections({});
     setMultiSelectIndices([]);
     setTasteSelections({});
+    setTotalScore(3.5); //基础分3.5
   };
 
   // 多选确认处理函数
@@ -526,6 +564,18 @@ export default function FlowPage() {
     setTasteSelections(tasteData);
     setHistory((prev) => [...prev, currentNode]);
     setCurrentNode(node.options[0].next);
+  };
+  //确认打分
+  const handleRatingConfirm = (score: number, optionId: string, optionLabel: string) => {
+    const newScore = Math.min(5, Math.max(0, totalScore + score));
+    setTotalScore(newScore);
+    
+    // 找到选中的选项
+    const selectedOption = node.options.find((_, i) => `${currentNode}-${i}` === optionId);
+    
+    setSelections((prev) => ({ ...prev, [currentNode]: `${optionLabel} (${score >= 0 ? '+' : ''}${score})` }));
+    setHistory((prev) => [...prev, currentNode]);
+    setCurrentNode(selectedOption?.next || node.options[0].next);
   };
 
   // 将选项转换为 FocusCards 需要的格式
@@ -558,10 +608,12 @@ export default function FlowPage() {
   // }
 
   // 数组
-  const wavyNodes = ["start", "taste_start", "nose_aroma"];
+  const wavyNodes = ["start", "taste_start", "body", "finish", "complete"];
 
   // WavyBackground 节点
   if (wavyNodes.includes(currentNode)) {
+    //判断是否为结束节点 complete
+    const isEndNode = node.type === "end" || node.options.length === 0;
     return (
       <WavyBackground
       containerClassName="flex-1 w-full"
@@ -582,12 +634,29 @@ export default function FlowPage() {
             ← 上一步
           </Button>
         )}
-        <Button
+
+        {/* <Button
           onClick={() => handleSelect(node.options[0])}
           className="px-16 py-3 text-lg md:text-xl h-auto"
         >
           {node.options[0].label}
-        </Button>
+        </Button> */}
+        {!isEndNode && (
+          <Button
+            onClick={() => handleSelect(node.options[0])}
+            className="px-16 py-3 text-lg md:text-xl h-auto"
+          >
+            {node.options[0].label}
+          </Button>
+        )}
+        {isEndNode && (
+          <Button
+            onClick={() => window.location.reload()} // 或其他结束逻辑
+            className="px-16 py-3 text-lg md:text-xl h-auto"
+          >
+            查看报告
+          </Button>
+        )}
       </div>
     </WavyBackground>
     );
@@ -642,6 +711,32 @@ export default function FlowPage() {
         onBack={handleBack}
         showBack={history.length > 0}
         initialSelections={tasteSelections}
+      />
+    );
+  }
+
+  // Rating 节点
+  if (ratingNodes[currentNode]) {
+    const config = ratingNodes[currentNode];
+    const ratingData = {
+      id: currentNode,
+      title: config.title,
+      subtitle: config.subtitle,
+      description: config.description,
+      options: node.options.map((opt, i) => ({
+        id: `${currentNode}-${i}`,
+        label: opt.label.replace(/\s*\([^)]*\)\s*$/, ''), // 移除括号里的分数显示
+        score: parseFloat(opt.value || '0'),
+      })),
+    };
+    
+    return (
+      <SingleRating
+        data={ratingData}
+        currentTotalScore={totalScore}
+        onConfirm={handleRatingConfirm}
+        onBack={handleBack}
+        showBack={history.length > 0}
       />
     );
   }
