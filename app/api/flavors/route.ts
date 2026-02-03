@@ -1,15 +1,5 @@
 import { NextRequest } from 'next/server'
-
-// 获取 D1 数据库绑定
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getDB(): any {
-  try {
-    // @ts-ignore Cloudflare Workers 环境
-    return process.env.DB || null
-  } catch {
-    return null
-  }
-}
+import { getCloudflareContext } from '@opennextjs/cloudflare'
 
 // 静态数据作为 fallback
 const staticFlavors = [
@@ -24,7 +14,14 @@ export async function GET(request: NextRequest) {
     const query = searchParams.get('q')?.toLowerCase() || ''
     const type = searchParams.get('type') || ''
 
-    const db = getDB()
+    // 尝试获取 D1 数据库
+    let db = null
+    try {
+      const { env } = await getCloudflareContext()
+      db = env.DB
+    } catch {
+      // 本地开发环境没有 Cloudflare context
+    }
     
     // 如果有 D1 数据库，使用数据库查询
     if (db) {
