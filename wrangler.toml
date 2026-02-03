@@ -1,0 +1,13 @@
+name = "judge-the-beer"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+main = ".open-next/worker.js"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "judge-the-beer-db"
+database_id = "e5aaa62a-a66c-4417-8a55-6ab675abf6a0"
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"

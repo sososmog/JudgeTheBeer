@@ -1,37 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server'
-import prisma from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
+
+export const runtime = 'edge'
+
+const staticFlavors = [
+  { id: '1', name: '葡萄柚', nameEn: 'Grapefruit', category: '水果', subCategory: '柑橘', type: 'good', description: '柑橘类水果香气' },
+  { id: '2', name: '热带水果', nameEn: 'Tropical', category: '水果', subCategory: '热带', type: 'good', description: '芒果、菠萝等热带水果风味' },
+  { id: '3', name: '焦糖', nameEn: 'Caramel', category: '麦芽', subCategory: '甜香', type: 'good', description: '烘烤麦芽带来的焦糖甜香' },
+]
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const query = searchParams.get('q') || ''
-    const type = searchParams.get('type') || ''  // "good" | "bad" | ""
+    const query = searchParams.get('q')?.toLowerCase() || ''
+    const type = searchParams.get('type') || ''
 
-    // 构建查询条件
-    const where: Prisma.FlavorWhereInput = {}
+    let flavors = staticFlavors
 
-    // 搜索词匹配
     if (query) {
-      where.OR = [
-        { name: { contains: query } },
-        { nameEn: { contains: query } },
-        { category: { contains: query } },
-        { subCategory: { contains: query } },
-        { description: { contains: query } },
-      ]
+      flavors = flavors.filter(f => 
+        f.name.toLowerCase().includes(query) || 
+        f.nameEn?.toLowerCase().includes(query) ||
+        f.category.toLowerCase().includes(query)
+      )
     }
 
-    // 类型筛选
     if (type) {
-      where.type = type
+      flavors = flavors.filter(f => f.type === type)
     }
-
-    const flavors = await prisma.flavor.findMany({
-      where,
-      orderBy: { name: 'asc' },
-      take: 50,
-    })
 
     return NextResponse.json({
       success: true,
