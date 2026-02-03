@@ -124,7 +124,7 @@ export const WavyBackground = ({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center",
+        "flex flex-col items-center justify-center overflow-hidden",
         containerClassName
       )}
       // 使用黑色背景色填充blur缝隙
