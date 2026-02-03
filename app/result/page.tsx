@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function ResultPage() {
+function ResultContent() {
   const searchParams = useSearchParams();
 
   // 基本信息
@@ -107,10 +108,7 @@ export default function ResultPage() {
     
     if (activeFlavorEntries.length === 0) return "";
 
-    // 按强度排序，取最突出的风味
     const sortedFlavors = activeFlavorEntries.sort((a, b) => b[1] - a[1]);
-    
-    // 分组：强烈风味 (>=3) 和 较弱风味 (<3)
     const strongFlavors = sortedFlavors.filter(([_, v]) => v >= 3);
     const mildFlavors = sortedFlavors.filter(([_, v]) => v > 0 && v < 3);
 
@@ -149,7 +147,6 @@ export default function ResultPage() {
   const generateComment = () => {
     const comments: string[] = [];
 
-    // 外观评价
     if (scores.appearance >= 4) {
       comments.push("这款啤酒外观出色，色泽诱人，泡沫细腻持久。");
     } else if (scores.appearance >= 3) {
@@ -158,7 +155,6 @@ export default function ResultPage() {
       comments.push("外观方面有待改善，可能存在一些视觉上的不足。");
     }
 
-    // 香气评价
     if (selectedAromas.length > 5) {
       comments.push("香气层次丰富，展现出复杂的风味特征。");
     } else if (selectedAromas.length > 0) {
@@ -167,13 +163,11 @@ export default function ResultPage() {
       comments.push("香气较为简单，风味层次有限。");
     }
 
-    // 风味评价（新增）
     const flavorDesc = generateFlavorDescription();
     if (flavorDesc) {
       comments.push(flavorDesc);
     }
 
-    // 口感评价
     if (scores.mouthfeel >= 4) {
       comments.push("口感饱满，风味平衡度极佳。");
     } else if (scores.mouthfeel >= 3) {
@@ -182,7 +176,6 @@ export default function ResultPage() {
       comments.push("口感方面略有不足，需要进一步优化。");
     }
 
-    // 收口评价
     if (finishData.cleanliness === 5) {
       comments.push("收口干净利落，回味悠长。");
     } else if (finishData.cleanliness === 3) {
@@ -191,7 +184,6 @@ export default function ResultPage() {
       comments.push("收口略显粗糙，可能有一些杂味残留。");
     }
 
-    // 酒精感
     if (finishData.alcoholWarmth === 1) {
       comments.push("回温后酒精感明显，适合在低温状态下尽快饮用。");
     }
@@ -226,7 +218,6 @@ export default function ResultPage() {
           品鉴报告
         </h1>
 
-        {/* 啤酒信息 */}
         <Card className="p-6 mb-6 bg-neutral-800 border-neutral-700">
           <h2 className="text-xl font-bold text-white mb-4">{beerInfo.name}</h2>
           <div className="grid grid-cols-2 gap-4 text-sm">
@@ -249,14 +240,12 @@ export default function ResultPage() {
           </div>
         </Card>
 
-        {/* 综合评分 */}
         <Card className="p-6 mb-6 text-center bg-neutral-800 border-neutral-700">
           <p className="text-gray-400 mb-2">综合评分</p>
           <p className="text-5xl font-bold text-amber-400 mb-2">{totalScore}</p>
           <p className={`text-lg font-medium ${level.color}`}>{level.text}</p>
         </Card>
 
-        {/* 风味分布雷达图 */}
         <Card className="p-6 mb-6 bg-neutral-800 border-neutral-700">
           <h3 className="text-lg font-medium text-gray-300 mb-4 text-center">
             风味分布
@@ -279,7 +268,6 @@ export default function ResultPage() {
           </div>
         </Card>
 
-        {/* 详细得分 */}
         <Card className="p-6 mb-6 bg-neutral-800 border-neutral-700">
           <h3 className="text-lg font-medium text-gray-300 mb-4">详细得分</h3>
           <div className="space-y-3">
@@ -300,7 +288,6 @@ export default function ResultPage() {
           </div>
         </Card>
 
-        {/* 风味信息 */}
         <Card className="p-6 mb-6 bg-neutral-800 border-neutral-700">
           <h3 className="text-lg font-medium text-gray-300 mb-4">香气信息</h3>
           {selectedAromas.length > 0 ? (
@@ -346,7 +333,6 @@ export default function ResultPage() {
           )}
         </Card>
 
-        {/* 收口与回温总结 */}
         <Card className="p-6 mb-6 bg-neutral-800 border-neutral-700">
           <h3 className="text-lg font-medium text-gray-300 mb-4">收口与回温</h3>
           <div className="grid grid-cols-3 gap-4 text-center">
@@ -371,13 +357,11 @@ export default function ResultPage() {
           </div>
         </Card>
 
-        {/* 评语 */}
         <Card className="p-6 mb-6 bg-neutral-800 border-neutral-700">
           <h3 className="text-lg font-medium text-gray-300 mb-4">品鉴评语</h3>
           <p className="text-gray-300 leading-relaxed">{generateComment()}</p>
         </Card>
 
-        {/* 操作按钮 */}
         <div className="flex gap-4">
           <Link href="/tasting" className="flex-1">
             <Button
@@ -395,5 +379,19 @@ export default function ResultPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex-1 flex justify-center items-center" style={{ backgroundColor: "rgb(31, 31, 31)" }}>
+          <p className="text-gray-400">加载中...</p>
+        </div>
+      }
+    >
+      <ResultContent />
+    </Suspense>
   );
 }
