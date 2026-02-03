@@ -11,13 +11,16 @@ import { DecisionLayout } from "@/components/ui/decision-layout";
 import { X, Check } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-//taste-analyzer
+// taste-analyzer
 import { TasteAnalyzer } from "@/components/ui/taste-analyzer";
 
-//Rating (only use the last one)
+// Rating (only use the last one)
 import { MultiStepRating } from "@/components/ui/rating-step";
 import { Wind, Droplets, Thermometer, Zap, GlassWater, Star } from "lucide-react";
 import { SingleRating } from "@/components/ui/rating-step";
+
+// Report
+import { TastingReport } from "@/components/ui/tasting-report";
 
 
 // 流程节点数据结构
@@ -495,6 +498,8 @@ export default function FlowPage() {
   const [tasteSelections, setTasteSelections] = useState<Record<string, string>>({});
   // 基础分 3.5
   const [totalScore, setTotalScore] = useState(3.5); 
+  // 报告状态控制
+  const [showReport, setShowReport] = useState(false);
 
   const node = flowData[currentNode];
 
@@ -534,6 +539,7 @@ export default function FlowPage() {
     setMultiSelectIndices([]);
     setTasteSelections({});
     setTotalScore(3.5); //基础分3.5
+    setShowReport(false); //默认不显示报告
   };
 
   // 多选确认处理函数
@@ -584,6 +590,21 @@ export default function FlowPage() {
   src: option.image,  // 添加这行
   onClick: () => handleSelect(option),
   }));
+
+  // 显示报告页面
+  if (showReport) {
+    return (
+      <TastingReport
+        score={totalScore}
+        selections={selections}
+        flowData={flowData}
+        onRestart={() => {
+          handleReset();
+          setShowReport(false);
+        }}
+      />
+    );
+  }
 
   // // start 节点使用 WavyBackground 特殊渲染
   // if (currentNode === "start") {
@@ -651,7 +672,7 @@ export default function FlowPage() {
         )}
         {isEndNode && (
           <Button
-            onClick={() => window.location.reload()} // 或其他结束逻辑
+            onClick={() => setShowReport(true)} // 显示报告
             className="px-16 py-3 text-lg md:text-xl h-auto"
           >
             查看报告
