@@ -32,10 +32,20 @@ export const Card = React.memo(
           card.onClick?.();
         }
       }}
+      // className={cn(
+      //   "rounded-lg relative bg-gradient-to-br from-zinc-800 to-zinc-900 overflow-hidden h-60 md:h-90 w-full md:w-68 lg:w-68 transition-all duration-300 ease-out cursor-pointer",
+      //   hovered !== null && hovered !== index && "blur-sm scale-[0.98]",
+      //   hovered === index && "scale-[1.02]",
+      //   isSelected && "ring-2 ring-amber-500"
+      // )}
+      // 移动端响应式
       className={cn(
-        "rounded-lg relative bg-gradient-to-br from-zinc-800 to-zinc-900 overflow-hidden h-60 md:h-90 w-full md:w-68 lg:w-68 transition-all duration-300 ease-out cursor-pointer",
-        hovered !== null && hovered !== index && "blur-sm scale-[0.98]",
-        hovered === index && "scale-[1.02]",
+        "rounded-lg relative bg-gradient-to-br from-zinc-800 to-zinc-900 overflow-hidden transition-all duration-300 ease-out cursor-pointer",
+        "w-[85vw] h-[120px] sm:w-[280px] sm:h-60 md:w-68 md:h-90",
+        "active:scale-[0.98]",
+        // 只在 sm 以上屏幕启用 hover blur 效果
+        hovered !== null && hovered !== index && "sm:blur-sm sm:scale-[0.98]",
+        hovered === index && "sm:scale-[1.02]",
         isSelected && "ring-2 ring-amber-500"
       )}
     >
@@ -77,11 +87,13 @@ export const Card = React.memo(
           {card.title}
         </div>
         
-        {/* 箭头指示 - 单选模式 */}
+        {/* 箭头指示 - 单选模式，移动端隐藏 */}
         {!multiSelect && (
           <div
             className={cn(
-              "mt-4 flex items-center gap-2 text-white transition-all duration-300",
+              "mt-4 items-center gap-2 text-white transition-all duration-300",
+              // 移动端完全隐藏，不占空间
+              "hidden sm:flex",
               hovered === index ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
             )}
           >
@@ -92,11 +104,13 @@ export const Card = React.memo(
           </div>
         )}
 
-        {/* 点击提示 - 多选模式 */}
+        {/* 点击提示 - 多选模式，移动端隐藏 */}
         {multiSelect && (
           <div
             className={cn(
-              "mt-4 flex items-center gap-2 transition-all duration-300",
+              "mt-4 items-center gap-2 transition-all duration-300",
+              // 移动端完全隐藏，不占空间
+              "hidden sm:flex",
               isSelected ? "text-amber-400" : "text-white",
               hovered === index ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
             )}
@@ -154,7 +168,7 @@ export function FocusCards({
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex flex-wrap justify-center gap-6 max-w-8xl mx-auto w-full px-4">
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 max-w-8xl mx-auto w-full px-4">
         {cards.map((card, index) => (
           <Card
             key={card.title + index}

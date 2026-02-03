@@ -49,10 +49,15 @@ export const WavyBackground = ({
   const init = () => {
     canvas = canvasRef.current;
     ctx = canvas.getContext("2d");
-    w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight;
+
+    // 增加额外的尺寸来补偿模糊溢出
+    const blurOffset = blur * 2;
+    w = ctx.canvas.width = window.innerWidth + blurOffset * 2;
+    h = ctx.canvas.height = window.innerHeight + blurOffset * 2;
+
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
+
     window.onresize = function () {
       w = ctx.canvas.width = window.innerWidth;
       h = ctx.canvas.height = window.innerHeight;
@@ -116,14 +121,29 @@ export const WavyBackground = ({
         containerClassName
       )}
     >
-      <canvas
+      {/* <canvas
         className="absolute inset-0 z-0"
         ref={canvasRef}
         id="canvas"
         style={{
           ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
         }}
-      ></canvas>
+      ></canvas> */}
+
+      {/* 解决blur溢出 单独包裹canvas */}
+      <div className="absolute inset-0 overflow-hidden">
+        <canvas
+          ref={canvasRef}
+          id="canvas"
+          style={{
+            position: "absolute",
+            top: `-${blur * 2}px`,
+            left: `-${blur * 2}px`,
+            ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
+          }}
+        ></canvas>
+      </div>
+
       <div className={cn("relative z-10", className)} {...props}>
         {children}
       </div>

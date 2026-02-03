@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { FocusCards } from "@/components/ui/focus-cards";
 
+import React from "react";
+
 // Yes or No
 import { DecisionLayout } from "@/components/ui/decision-layout";
 import { X, Check } from "lucide-react";
@@ -35,7 +37,7 @@ interface FlowNode {
 const flowData: Record<string, FlowNode> = {
   start: {
     id: "start",
-    question: "先闻几秒钟... 你闻到了什么？",
+    question: "先闻几秒钟... \n你闻到了什么？",
     options: [{ label: "继续", next: "smell_direction" }],
   },
   smell_direction: {
@@ -489,6 +491,29 @@ const ratingNodes: Record<string, { title: string; subtitle?: string; descriptio
   drink_triple: { title: "易饮性", subtitle: "Triple/Quadruple/More", description: "高酒精度下的易饮程度" },
 };
 
+// 缓慢滚动至顶部 
+// duration参数：500 0.5s, 800 0.8s, 1200 1.2s, 1500 1.5s
+const smoothScrollToTop = (duration: number = 800) => {
+  const start = window.scrollY;
+  const startTime = performance.now();
+    
+  const animateScroll = (currentTime: number) => {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+      
+    // easeOutCubic 缓动函数，更平滑
+    const easeOut = 1 - Math.pow(1 - progress, 3);
+      
+    window.scrollTo(0, start * (1 - easeOut));
+      
+    if (progress < 1) {
+      requestAnimationFrame(animateScroll);
+    }
+  };
+
+  requestAnimationFrame(animateScroll);
+};  
+
 export default function FlowPage() {
   const [currentNode, setCurrentNode] = useState("start");
   const [history, setHistory] = useState<string[]>([]);
@@ -507,6 +532,11 @@ export default function FlowPage() {
     setSelections((prev) => ({ ...prev, [currentNode]: option.value || option.label }));
     setHistory((prev) => [...prev, currentNode]);
     setCurrentNode(option.next);
+
+    // 跳转下一页滚动到页面顶部 （浏览器控制，弃用）
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 滚动至顶部
+    smoothScrollToTop(800);
   };
 
   const handleBack = () => {
@@ -527,6 +557,11 @@ export default function FlowPage() {
       }
       
       setCurrentNode(prev);
+
+      // 返回上一页滚动到页面顶部 （浏览器控制，弃用）
+      // window.scrollTo({ top: 0, behavior: 'smooth' });
+      // 滚动至顶部
+      smoothScrollToTop(800);
     }
   };
 
@@ -552,6 +587,8 @@ export default function FlowPage() {
     setHistory((prev) => [...prev, currentNode]);
     setCurrentNode(node.options[0].next);
     setMultiSelectIndices([]);
+    // 滚动至顶部
+    smoothScrollToTop(800);
   };
 
   const handleTasteSubmit = (tasteData: Record<string, string>) => {
@@ -570,7 +607,10 @@ export default function FlowPage() {
     setTasteSelections(tasteData);
     setHistory((prev) => [...prev, currentNode]);
     setCurrentNode(node.options[0].next);
+    //滚动到顶部
+    smoothScrollToTop(800);
   };
+
   //确认打分
   const handleRatingConfirm = (score: number, optionId: string, optionLabel: string) => {
     const newScore = Math.min(5, Math.max(0, totalScore + score));
@@ -642,9 +682,20 @@ export default function FlowPage() {
       colors={["#F59E0B", "#D97706", "#FBBF24", "#FEF3C7", "#FDE68A"]}
       backgroundFill="#181818"
     >
-      <h1 className="text-4xl md:text-6xl font-bold text-white text-center mb-8">
+      {/* <h1 className="text-4xl md:text-6xl font-bold text-white text-center mb-8">
         {node.question}
+      </h1> */}
+      {/* 移动端换行 PC端不换行 */}
+      <h1 className="text-4xl md:text-6xl font-bold text-white text-center mb-8">
+        {node.question.split('\n').map((line, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && <br className="block sm:hidden" />}
+            {i > 0 && <span className="hidden sm:inline"> </span>}
+            {line}
+          </React.Fragment>
+        ))}
       </h1>
+      
       <div className="flex gap-4">
         {history.length > 0 && (
           <Button
