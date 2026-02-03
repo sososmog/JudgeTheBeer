@@ -15,10 +15,11 @@ export async function GET(request: NextRequest) {
     const type = searchParams.get('type') || ''
 
     // 尝试获取 D1 数据库
-    let db = null
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let db: any = null
     try {
-      const { env } = await getCloudflareContext()
-      db = env.DB
+      const ctx = await getCloudflareContext() as unknown as { env: { DB: any } }
+      db = ctx.env.DB
     } catch {
       // 本地开发环境没有 Cloudflare context
     }
