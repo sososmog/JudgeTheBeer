@@ -15,7 +15,7 @@ export const WavyBackground = ({
   waveOpacity = 0.5,
   ...props
 }: {
-  children?: any;
+  children?: React.ReactNode;
   className?: string;
   containerClassName?: string;
   colors?: string[];
@@ -24,7 +24,7 @@ export const WavyBackground = ({
   blur?: number;
   speed?: "slow" | "fast";
   waveOpacity?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }) => {
   const noise = createNoise3D();
   let w: number,
@@ -48,10 +48,12 @@ export const WavyBackground = ({
 
   const init = () => {
     canvas = canvasRef.current;
+    // if (!canvas) return;
     ctx = canvas.getContext("2d");
+    // if (!ctx) return;
 
     // 增加额外的尺寸来补偿模糊溢出
-    const blurOffset = blur * 2;
+    const blurOffset = blur * 3;
     w = ctx.canvas.width = window.innerWidth + blurOffset * 2;
     h = ctx.canvas.height = window.innerHeight + blurOffset * 2;
 
@@ -59,8 +61,9 @@ export const WavyBackground = ({
     nt = 0;
 
     window.onresize = function () {
-      w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight;
+      // if (!ctx) return;
+      w = ctx.canvas.width = window.innerWidth + blurOffset * 2;
+      h = ctx.canvas.height = window.innerHeight + blurOffset * 2;
       ctx.filter = `blur(${blur}px)`;
     };
     render();
@@ -74,14 +77,16 @@ export const WavyBackground = ({
     "#22d3ee",
   ];
   const drawWave = (n: number) => {
+    // if (!ctx) return;
+
     nt += getSpeed();
     for (i = 0; i < n; i++) {
       ctx.beginPath();
       ctx.lineWidth = waveWidth || 50;
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = 0; x < w; x += 5) {
-        var y = noise(x / 800, 0.3 * i, nt) * 100;
-        ctx.lineTo(x, y + h * 0.5); // adjust for height, currently at 50% of the container
+        const y = noise(x / 800, 0.3 * i, nt) * 100;  // var 改成 let
+        ctx.lineTo(x, y + h * 0.5);
       }
       ctx.stroke();
       ctx.closePath();
@@ -90,6 +95,8 @@ export const WavyBackground = ({
 
   let animationId: number;
   const render = () => {
+    // if (!ctx) return;
+
     ctx.fillStyle = backgroundFill || "black";
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
@@ -132,17 +139,17 @@ export const WavyBackground = ({
 
       {/* 解决blur溢出 单独包裹canvas */}
       <div className="absolute inset-0 overflow-hidden">
-        <canvas
-          ref={canvasRef}
-          id="canvas"
-          style={{
-            position: "absolute",
-            top: `-${blur * 2}px`,
-            left: `-${blur * 2}px`,
-            ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
-          }}
-        ></canvas>
-      </div>
+      <canvas
+        ref={canvasRef}
+        id="canvas"
+        style={{
+          position: "absolute",
+          top: `-${blur * 3}px`,
+          left: `-${blur * 3}px`,
+          ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
+        }}
+      ></canvas>
+    </div>
 
       <div className={cn("relative z-10", className)} {...props}>
         {children}
