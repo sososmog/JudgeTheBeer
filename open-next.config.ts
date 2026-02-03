@@ -1,5 +1,6 @@
-/** @type {import('@opennextjs/cloudflare').OpenNextConfig} */
-const config = {
+import type { OpenNextConfig } from "@opennextjs/cloudflare";
+
+export default {
   default: {
     override: {
       wrapper: "cloudflare-node",
@@ -22,6 +23,4 @@ const config = {
       queue: "dummy",
     },
   },
-};
-
-module.exports = config;
+} satisfies OpenNextConfig;
