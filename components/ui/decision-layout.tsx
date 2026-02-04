@@ -1,6 +1,12 @@
 import React, { ReactNode } from 'react';
 import { LucideIcon } from 'lucide-react';
 
+// Tag 数据结构
+interface TagItem {
+  label: string;
+  category?: string; // 可选的分类标签，如 "香气走向"、"具体风味"
+}
+
 // 定义单个选项的配置接口
 interface DecisionOption {
   title: string;
@@ -17,19 +23,24 @@ interface DecisionLayoutProps {
   subTitle?: string;
   options: [DecisionOption, DecisionOption];
   footerText?: ReactNode;
+  // 新增：可选的 tags 展示
+  tags?: TagItem[];
+  tagsTitle?: string; // tags 区域的标题，如 "你选择的香气"
 }
 
 export const DecisionLayout: React.FC<DecisionLayoutProps> = ({ 
   mainTitle, 
   subTitle, 
   options,
-  footerText 
+  footerText,
+  tags,
+  tagsTitle = "你的选择"
 }) => {
   return (
     <div className="flex-1 bg-zinc-900 flex items-center justify-center p-6">
       <div className="w-full max-w-3xl text-center">
         {/* 响应式换行 */}
-        <h1 className="text-3xl md:text-5xl font-bold text-white mb-12">
+        <h1 className="text-3xl md:text-5xl font-bold text-white mb-8">
           {mainTitle.split('\n').map((line, i) => (
             <React.Fragment key={i}>
               {i > 0 && <br className="block sm:hidden" />}
@@ -38,7 +49,29 @@ export const DecisionLayout: React.FC<DecisionLayoutProps> = ({
             </React.Fragment>
           ))}
         </h1>
-        {subTitle && <p className="text-zinc-400 mb-12">{subTitle}</p>}
+        {subTitle && <p className="text-zinc-400 mb-8">{subTitle}</p>}
+        
+        {/* Tags 展示区域 */}
+        {tags && tags.length > 0 && (
+          <div className="mb-10">
+            {tagsTitle && (
+              <p className="text-zinc-500 text-sm mb-4">{tagsTitle}</p>
+            )}
+            <div className="flex flex-wrap justify-center gap-2">
+              {tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm font-medium"
+                >
+                  {tag.category && (
+                    <span className="text-amber-500/60 text-xs">{tag.category}:</span>
+                  )}
+                  {tag.label}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {options.map((opt, index) => (

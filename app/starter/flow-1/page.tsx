@@ -287,7 +287,7 @@ const flowData: Record<string, FlowNode> = {
   // YON
   nose_aroma: {
     id: "nose_aroma",
-    question: "感受鼻腔香气，\n是否修改香味描述？",
+    question: "感受鼻腔香气:\n是否修改香味描述？",
     options: [
       { label: "是，返回修改", next: "smell_direction" },
       { label: "否，继续", next: "body" },
@@ -577,6 +577,36 @@ export default function FlowPage() {
     setShowReport(false); //默认不显示报告
   };
 
+  // 提取香气相关的选择，用于 nose_aroma 节点展示
+  const getAromaTags = (): { label: string; category?: string }[] => {
+    const tags: { label: string; category?: string }[] = [];
+    
+    // 香气相关的节点映射
+    const aromaNodes: Record<string, string> = {
+      smell_direction: "香味走向",
+      sweet_type: "甜度类型",
+      tropical_fruit: "热带水果",
+      stone_fruit: "核果浆果",
+      citrus: "柑橘类",
+      bitter_spicy: "植物辛辣",
+      alcohol_check: "酒精感",
+    };
+    
+    Object.entries(aromaNodes).forEach(([nodeId, category]) => {
+      if (selections[nodeId]) {
+        // 处理多选值（逗号分隔）
+        const values = selections[nodeId].split(", ");
+        values.forEach(value => {
+          if (value && value !== "继续") {
+            tags.push({ label: value, category });
+          }
+        });
+      }
+    });
+    
+    return tags;
+  };
+
   // 多选确认处理函数
   const handleMultiSelectConfirm = () => {
     const selectedValues = multiSelectIndices
@@ -762,8 +792,26 @@ export default function FlowPage() {
 
 
   // DecisionLayout 节点
+  // if (decisionNodes[currentNode]) {
+  //   const config = decisionNodes[currentNode];
+  //   return (
+  //     <DecisionLayout
+  //       mainTitle={node.question}
+  //       options={[
+  //         { ...config.options[0], action: () => handleSelect(node.options[0]) },
+  //         { ...config.options[1], action: () => handleSelect(node.options[1]) },
+  //       ]}
+  //     />
+  //   );
+  // }
+
+  // tag传值的DecisionLayout 节点
   if (decisionNodes[currentNode]) {
     const config = decisionNodes[currentNode];
+    
+    // nose_aroma 节点特殊处理：展示香气 tags
+    const isNoseAroma = currentNode === "nose_aroma";
+    
     return (
       <DecisionLayout
         mainTitle={node.question}
@@ -771,6 +819,9 @@ export default function FlowPage() {
           { ...config.options[0], action: () => handleSelect(node.options[0]) },
           { ...config.options[1], action: () => handleSelect(node.options[1]) },
         ]}
+        // 仅 nose_aroma 节点传递 tags
+        tags={isNoseAroma ? getAromaTags() : undefined}
+        tagsTitle={isNoseAroma ? "你选择的香气" : undefined}
       />
     );
   }
