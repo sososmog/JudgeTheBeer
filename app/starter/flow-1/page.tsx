@@ -464,7 +464,7 @@ const decisionNodes: Record<string, {
   nose_aroma: {
     options: [
       { title: "是", description: "返回修改", icon: Check, colorClass: "amber" },
-      { title: "否", description: "继续", icon: X, colorClass: "amber" },
+      { title: "否", description: "确认选择并继续", icon: X, colorClass: "amber" },
     ],
   },
   //TODO
@@ -525,13 +525,23 @@ export default function FlowPage() {
   const [totalScore, setTotalScore] = useState(3.5); 
   // 报告状态控制
   const [showReport, setShowReport] = useState(false);
+  // 标记是否处于"香味修改模式"
+  const [isAromaEditMode, setIsAromaEditMode] = useState(false);
 
   const node = flowData[currentNode];
 
   const handleSelect = (option: { label: string; next: string; value?: string }) => {
     setSelections((prev) => ({ ...prev, [currentNode]: option.value || option.label }));
     setHistory((prev) => [...prev, currentNode]);
-    setCurrentNode(option.next);
+    
+    // 检查：如果在香味修改模式下，且下一个节点是味觉开始（taste_start）
+    // 则跳回 nose_aroma 而不是继续味觉流程
+    if (isAromaEditMode && option.next === "taste_start") {
+      setCurrentNode("nose_aroma");
+      setIsAromaEditMode(false); // 退出修改模式
+    } else {
+      setCurrentNode(option.next);
+    }
 
     // 跳转下一页滚动到页面顶部 （浏览器控制，弃用）
     // window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -575,7 +585,21 @@ export default function FlowPage() {
     setTasteSelections({});
     setTotalScore(3.5); //基础分3.5
     setShowReport(false); //默认不显示报告
+    setIsAromaEditMode(false); //重置香味修改模式
   };
+
+  // 香味流程的节点列表（用于判断是否在香味修改流程中）
+  const aromaNodeIds = [
+    "smell_direction",
+    "sweet_type", 
+    "tropical_fruit",
+    "stone_fruit",
+    "sour_sweet",
+    "citrus",
+    "bitter_spicy",
+    "vegetal_detail",
+    "alcohol_check",
+  ];
 
   // 提取香气相关的选择，用于 nose_aroma 节点展示
   const getAromaTags = (): { label: string; category?: string }[] => {
@@ -811,15 +835,40 @@ export default function FlowPage() {
     
     // nose_aroma 节点特殊处理：展示香气 tags
     const isNoseAroma = currentNode === "nose_aroma";
+
+    // 自定义 nose_aroma 的"是"选项行为
+    const handleNoseAromaYes = () => {
+      setIsAromaEditMode(true); // 进入香味修改模式
+      
+      // 清除之前的香味相关选择
+      setSelections((prev) => {
+        const newSelections = { ...prev };
+        aromaNodeIds.forEach((nodeId) => {
+          delete newSelections[nodeId];
+        });
+        return newSelections;
+      });
+      
+      // 清除香味相关的历史记录，避免返回到旧的香味节点
+      setHistory((prev) => prev.filter((nodeId) => !aromaNodeIds.includes(nodeId)));
+      
+      setCurrentNode("smell_direction"); // 直接跳转，不走 handleSelect
+      smoothScrollToTop(800);
+    };
     
     return (
       <DecisionLayout
         mainTitle={node.question}
         options={[
-          { ...config.options[0], action: () => handleSelect(node.options[0]) },
-          { ...config.options[1], action: () => handleSelect(node.options[1]) },
+          { 
+            ...config.options[0], 
+            action: isNoseAroma ? handleNoseAromaYes : () => handleSelect(node.options[0]) 
+          },
+          { 
+            ...config.options[1], 
+            action: () => handleSelect(node.options[1]) 
+          },
         ]}
-        // 仅 nose_aroma 节点传递 tags
         tags={isNoseAroma ? getAromaTags() : undefined}
         tagsTitle={isNoseAroma ? "你选择的香气" : undefined}
       />
