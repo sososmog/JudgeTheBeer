@@ -15,8 +15,11 @@ export default function Home() {
 
       {/* 标题区域 */}
       <div className="text-center mb-12 relative z-10 flex flex-col items-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-amber-400 mb-4">
-          🍺 JudgeTheBeer
+        <h1 
+          className="text-5xl md:text-7xl text-amber-400 mb-4"
+          style={{ fontFamily: 'OrangeJuice' }}
+        >
+          JudgeTheBeer
         </h1>
         <p className="text-amber-100 w-full max-w-[320px] md:max-w-[400px]">
           从外观、香气、味道、口感多维度品鉴，生成UT评价

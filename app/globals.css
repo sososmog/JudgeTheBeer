@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Logo Font */
+@font-face {
+  font-family: 'OrangeJuice';
+  src: url('/public/fonts/orange-juice-2.0.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Background Color */
 :root {
   --bg-main: rgb(31, 31, 31);
