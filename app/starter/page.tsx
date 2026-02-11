@@ -6,13 +6,17 @@ import { useRouter } from "next/navigation";
 import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 import { FocusCards } from "@/components/ui/focus-cards";
 
+// Alert
+import { useAlert } from "@/contexts/alert-context";
+
+// TBD页面路径为null
 const cards = [
   { id: 1, title: "Hazy IPA", description: "IPA/Pale Ale/Double IPA/Triple IPA", image: "/img/hazy.png", href: "/starter/flow-1" },
-  { id: 2, title: "West Coast IPA", description: "TBD", image: "/img/wc.png", href: "/starter/flow-2" },
-  { id: 3, title: "Lager/Pilsner", description: "TBD", image: "/img/lager.png", href: "/starter/flow-3" },
-  { id: 4, title: "Stout", description: "TBD", image: "/img/stout.png", href: "/starter/flow-4" },
-  { id: 5, title: "Sour", description: "TBD", image: "/img/sour.png", href: "/starter/flow-5" },
-  { id: 6, title: "果泥", description: "TBD", image: "/img/fruit.png", href: "/starter/flow-6" },
+  { id: 2, title: "West Coast IPA", description: "TBD", image: "/img/wc.png", href: null },  // /starter/flow-2
+  { id: 3, title: "Lager/Pilsner", description: "TBD", image: "/img/lager.png", href: null }, // /starter/flow-3
+  { id: 4, title: "Stout", description: "TBD", image: "/img/stout.png", href: null }, // /starter/flow-4
+  { id: 5, title: "Sour", description: "TBD", image: "/img/sour.png", href: null }, // /starter/flow-5
+  { id: 6, title: "果泥", description: "TBD", image: "/img/fruit.png", href: null }, // /starter/flow-6
 ];
 
 // MultiStepLoader 的加载步骤
@@ -29,6 +33,8 @@ export default function StarterPage() {
   const [loadingKey, setLoadingKey] = useState(0);
   const [targetHref, setTargetHref] = useState<string | null>(null);
   const router = useRouter();
+  // Alert
+  const { showAlert } = useAlert();
 
   const handleCardClick = (card: typeof cards[0]) => {
     if (card.href) {
@@ -42,7 +48,10 @@ export default function StarterPage() {
         router.push(card.href);
       }
     } else {
-      alert("TBD");
+      showAlert({
+        title: "功能开发中...",
+        description: "该品类的品鉴流程正在开发中，敬请期待！",
+      });
     }
   };
 

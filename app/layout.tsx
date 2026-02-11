@@ -5,6 +5,9 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
+// Alert
+import { AlertProvider } from "@/contexts/alert-context";
+
 const inter = Inter({ 
   subsets: ["latin"],
   variable: "--font-inter",
@@ -28,11 +31,13 @@ export default function RootLayout({
   return (
     <html lang="zh" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="font-sans antialiased">
-        <div className="min-h-screen flex flex-col">
-          <Navbar />
-          <main className="flex-1 flex flex-col pt-[8vh]">{children}</main>
-          <Footer />
-        </div>
+        <AlertProvider>
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-1 flex flex-col pt-[8vh]">{children}</main>
+            <Footer />
+          </div>
+        </AlertProvider>
       </body>
     </html>
   );
