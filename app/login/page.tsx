@@ -18,10 +18,12 @@ export default function LoginPage() {
     password: "",
     confirmPassword: "",
   });
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setSuccessMsg("");
     setLoading(true);
 
     try {
@@ -47,7 +49,19 @@ export default function LoginPage() {
         return;
       }
 
-      // 保存用户信息到 localStorage
+      if (!isLogin) {
+        // 注册成功，显示提示后跳转到登录
+        setSuccessMsg("注册成功！正在跳转到登录...");
+        setLoading(false);
+        setTimeout(() => {
+          setIsLogin(true);
+          setSuccessMsg("");
+          setFormData({ ...formData, password: "", confirmPassword: "" });
+        }, 1500);
+        return;
+      }
+
+      // 登录成功，保存用户信息到 localStorage
       localStorage.setItem("user", JSON.stringify(data.data));
 
       // 根据角色跳转
@@ -91,6 +105,13 @@ export default function LoginPage() {
             {error && (
               <div className="bg-red-500/10 border border-red-500/30 rounded-xl py-2 px-4 text-red-400 text-sm">
                 {error}
+              </div>
+            )}
+
+            {/* 成功提示 */}
+            {successMsg && (
+              <div className="bg-green-500/10 border border-green-500/30 rounded-xl py-2 px-4 text-green-400 text-sm">
+                {successMsg}
               </div>
             )}
 
