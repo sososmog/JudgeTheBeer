@@ -1,32 +1,31 @@
-import { NextRequest, NextResponse } from 'next/server'
-
-// @ts-ignore - Cloudflare Workers 环境
-function getDB(): D1Database | null {
-  try {
-    // @ts-ignore
-    return process.env.DB || null
-  } catch {
-    return null
-  }
-}
+import { NextRequest } from 'next/server'
+import { getCloudflareContext } from '@opennextjs/cloudflare'
 
 export async function POST(request: NextRequest) {
   try {
     const { email, username, password } = await request.json()
 
     if (!email || !username || !password) {
-      return NextResponse.json(
-        { success: false, error: '请填写完整信息' },
-        { status: 400 }
+      return new Response(
+        JSON.stringify({ success: false, error: '请填写完整信息' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
       )
     }
 
-    const db = getDB()
+    // 获取 D1 数据库
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let db: any = null
+    try {
+      const ctx = await getCloudflareContext() as unknown as { env: { DB: any } }
+      db = ctx.env.DB
+    } catch {
+      // 本地开发环境没有 Cloudflare context
+    }
 
     if (!db) {
-      return NextResponse.json(
-        { success: false, error: '数据库连接失败' },
-        { status: 500 }
+      return new Response(
+        JSON.stringify({ success: false, error: '数据库连接失败' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
       )
     }
 
@@ -37,16 +36,16 @@ export async function POST(request: NextRequest) {
       .first()
 
     if (existing) {
-      return NextResponse.json(
-        { success: false, error: '该邮箱已被注册' },
-        { status: 400 }
+      return new Response(
+        JSON.stringify({ success: false, error: '该邮箱已被注册' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
       )
     }
 
     // 生成用户 ID
     const id = `user_${Date.now()}`
 
-    // 插入新用户（默认 role 为 'user'）
+    // 插入新用户
     await db
       .prepare(
         'INSERT INTO User (id, email, username, password, role) VALUES (?, ?, ?, ?, ?)'
@@ -54,20 +53,23 @@ export async function POST(request: NextRequest) {
       .bind(id, email, username, password, 'user')
       .run()
 
-    return NextResponse.json({
-      success: true,
-      data: {
-        id,
-        email,
-        username,
-        role: 'user',
-      },
-    })
+    return new Response(
+      JSON.stringify({
+        success: true,
+        data: {
+          id,
+          email,
+          username,
+          role: 'user',
+        },
+      }),
+      { headers: { 'Content-Type': 'application/json' } }
+    )
   } catch (error) {
     console.error('注册失败:', error)
-    return NextResponse.json(
-      { success: false, error: '注册失败' },
-      { status: 500 }
+    return new Response(
+      JSON.stringify({ success: false, error: '注册失败' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     )
   }
 }
