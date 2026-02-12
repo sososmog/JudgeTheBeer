@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-// @ts-expect-error - Cloudflare Workers 环境
+// @ts-ignore - Cloudflare Workers 环境
 function getDB(): D1Database | null {
   try {
-    // @ts-expect-error
+    // @ts-ignore
     return process.env.DB || null
   } catch {
     return null
