@@ -315,6 +315,7 @@ CREATE TABLE IF NOT EXISTS User (
   updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
--- 创建管理员账号
+-- 清空用户表并创建管理员账号
+DELETE FROM User;
 INSERT INTO User (id, email, username, password, role) VALUES 
 ('admin1', 'admin@judgethebeer.com', 'Admin', 'admin123', 'admin');
