@@ -18,9 +18,13 @@ export function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-2xl">🍺</span>
-          <span className="text-xl font-bold text-amber-400">JudgeTheBeer</span>
+        <Link href="/" className="flex items-center">
+          <span 
+            className="text-amber-400"
+            style={{ fontFamily: 'OrangeJuice', fontSize: '3.1rem' }}
+          >
+            JudgeTheBeer
+          </span>
         </Link>
 
         {/* 右侧：风味搜索 + Dropdown */}

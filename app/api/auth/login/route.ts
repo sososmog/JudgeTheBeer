@@ -16,16 +16,17 @@ export async function POST(request: NextRequest) {
     // 获取 D1 数据库
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let db: any = null
+    let dbError: string | null = null
     try {
       const ctx = await getCloudflareContext() as unknown as { env: { DB: any } }
       db = ctx.env.DB
-    } catch {
-      // 本地开发环境没有 Cloudflare context
+    } catch (e) {
+      dbError = e instanceof Error ? e.message : String(e)
     }
 
     if (!db) {
       return new Response(
-        JSON.stringify({ success: false, error: '数据库连接失败' }),
+        JSON.stringify({ success: false, error: '数据库连接失败', detail: dbError }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       )
     }
