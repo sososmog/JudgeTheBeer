@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { getCloudflareContext } from '@opennextjs/cloudflare'
+import { verifyPassword } from '@/lib/password'
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,7 +44,8 @@ export async function POST(request: NextRequest) {
     }
 
     // 验证密码
-    if (result.password !== password) {
+    const isValid = await verifyPassword(password, result.password)
+    if (!isValid) {
       return new Response(
         JSON.stringify({ success: false, error: '密码错误' }),
         { status: 401, headers: { 'Content-Type': 'application/json' } }

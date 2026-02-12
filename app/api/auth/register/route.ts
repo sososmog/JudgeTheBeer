@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { getCloudflareContext } from '@opennextjs/cloudflare'
+import { hashPassword } from '@/lib/password'
 
 export async function POST(request: NextRequest) {
   try {
@@ -45,12 +46,15 @@ export async function POST(request: NextRequest) {
     // 生成用户 ID
     const id = `user_${Date.now()}`
 
+    // 加密密码
+    const hashedPassword = await hashPassword(password)
+
     // 插入新用户
     await db
       .prepare(
         'INSERT INTO User (id, email, username, password, role) VALUES (?, ?, ?, ?, ?)'
       )
-      .bind(id, email, username, password, 'user')
+      .bind(id, email, username, hashedPassword, 'user')
       .run()
 
     return new Response(
