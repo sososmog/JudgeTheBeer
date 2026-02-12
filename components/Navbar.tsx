@@ -101,30 +101,56 @@ export function Navbar() {
               {/* 下拉菜单 */}
               <div className="absolute right-0 mt-3 w-52 py-2 bg-black/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 z-50">
                 {user ? (
-                  <>
-                    {/* 已登录状态 */}
-                    <button
-                      className="w-full flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
-                      onClick={handleLogout}
-                    >
-                      <LogOut className="w-5 h-5 text-amber-400" /> 退出登录
-                    </button>
-                    <Link
-                      href="/profile"
-                      className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
-                      onClick={() => setOpen(false)}
-                    >
-                      <User className="w-5 h-5 text-amber-400" /> {user.username}
-                    </Link>
-                    <Link
-                      href="/history"
-                      className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
-                      onClick={() => setOpen(false)}
-                    >
-                      <History className="w-5 h-5 text-amber-400" /> 历史记录
-                    </Link>
-                    <div className="my-2 mx-4 border-t border-white/20" />
-                  </>
+                  user.role === "admin" ? (
+                    <>
+                      {/* 管理员状态 - 只显示退出登录 */}
+                      <button
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
+                        onClick={handleLogout}
+                      >
+                        <LogOut className="w-5 h-5 text-amber-400" /> 退出登录
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      {/* 普通用户已登录状态 */}
+                      <button
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
+                        onClick={handleLogout}
+                      >
+                        <LogOut className="w-5 h-5 text-amber-400" /> 退出登录
+                      </button>
+                      <Link
+                        href="/profile"
+                        className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
+                        onClick={() => setOpen(false)}
+                      >
+                        <User className="w-5 h-5 text-amber-400" /> {user.username}
+                      </Link>
+                      <Link
+                        href="/history"
+                        className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
+                        onClick={() => setOpen(false)}
+                      >
+                        <History className="w-5 h-5 text-amber-400" /> 历史记录
+                      </Link>
+                      <div className="my-2 mx-4 border-t border-white/20" />
+                      <Link
+                        href="/settings"
+                        className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
+                        onClick={() => setOpen(false)}
+                      >
+                        <Settings className="w-5 h-5 text-amber-400" /> 设置
+                      </Link>
+                      <Link
+                        href="/about"
+                        className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
+                        onClick={() => setOpen(false)}
+                      >
+                        <Info className="w-5 h-5 text-amber-400" /> 关于
+                      </Link>
+                    </>
+                  )
                 ) : (
                   <>
                     {/* 未登录状态 */}
@@ -136,22 +162,22 @@ export function Navbar() {
                       <LogIn className="w-5 h-5 text-amber-400" /> 登录 / 注册
                     </Link>
                     <div className="my-2 mx-4 border-t border-white/20" />
+                    <Link
+                      href="/settings"
+                      className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
+                      onClick={() => setOpen(false)}
+                    >
+                      <Settings className="w-5 h-5 text-amber-400" /> 设置
+                    </Link>
+                    <Link
+                      href="/about"
+                      className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
+                      onClick={() => setOpen(false)}
+                    >
+                      <Info className="w-5 h-5 text-amber-400" /> 关于
+                    </Link>
                   </>
                 )}
-                <Link
-                  href="/settings"
-                  className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
-                  onClick={() => setOpen(false)}
-                >
-                  <Settings className="w-5 h-5 text-amber-400" /> 设置
-                </Link>
-                <Link
-                  href="/about"
-                  className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:bg-white/10 transition-colors"
-                  onClick={() => setOpen(false)}
-                >
-                  <Info className="w-5 h-5 text-amber-400" /> 关于
-                </Link>
               </div>
             </>
           )}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Shield, Users, Database, Settings } from "lucide-react";
+import { Shield, Users, Database, Settings, UserCog } from "lucide-react";
 
 export default function AdminPage() {
   const router = useRouter();
@@ -45,7 +45,7 @@ export default function AdminPage() {
               className="text-3xl text-amber-400"
               style={{ fontFamily: 'OrangeJuice' }}
             >
-              管理后台
+              后台管理
             </h1>
             <p className="text-gray-400">欢迎回来，{user.username}</p>
           </div>
@@ -53,6 +53,12 @@ export default function AdminPage() {
 
         {/* 功能卡片 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-amber-400/30 transition-colors cursor-pointer">
+            <UserCog className="w-8 h-8 text-amber-400 mb-3" />
+            <h2 className="text-white text-lg font-semibold mb-1">管理员信息设置</h2>
+            <p className="text-gray-400 text-sm">修改管理员账号和密码</p>
+          </div>
+
           <div className="bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-amber-400/30 transition-colors cursor-pointer">
             <Users className="w-8 h-8 text-amber-400 mb-3" />
             <h2 className="text-white text-lg font-semibold mb-1">用户管理</h2>
