@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Mail, Lock, User, ArrowLeft, Loader2 } from "lucide-react";
+import { Lock, User, ArrowLeft, Loader2, Mail } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -94,31 +94,31 @@ export default function LoginPage() {
               </div>
             )}
 
-            {/* 注册时显示用户名 */}
+            {/* 用户名（登录和注册都需要） */}
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+              <input
+                type="text"
+                placeholder="用户名"
+                value={formData.username}
+                onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400/50 transition-colors"
+              />
+            </div>
+
+            {/* 注册时显示邮箱 */}
             {!isLogin && (
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
-                  type="text"
-                  placeholder="用户名"
-                  value={formData.username}
-                  onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                  type="email"
+                  placeholder="邮箱"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400/50 transition-colors"
                 />
               </div>
             )}
-
-            {/* 邮箱 */}
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-              <input
-                type="email"
-                placeholder="邮箱"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400/50 transition-colors"
-              />
-            </div>
 
             {/* 密码 */}
             <div className="relative">

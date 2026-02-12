@@ -30,13 +30,26 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // 检查用户名是否已存在
+    const existingUsername = await db
+      .prepare('SELECT id FROM User WHERE username = ?')
+      .bind(username)
+      .first()
+
+    if (existingUsername) {
+      return new Response(
+        JSON.stringify({ success: false, error: '该用户名已被注册' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
+
     // 检查邮箱是否已存在
-    const existing = await db
+    const existingEmail = await db
       .prepare('SELECT id FROM User WHERE email = ?')
       .bind(email)
       .first()
 
-    if (existing) {
+    if (existingEmail) {
       return new Response(
         JSON.stringify({ success: false, error: '该邮箱已被注册' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }

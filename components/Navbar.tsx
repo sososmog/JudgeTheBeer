@@ -21,7 +21,7 @@ export function Navbar() {
         <Link href="/" className="flex items-center">
           <span 
             className="text-amber-400"
-            style={{ fontFamily: 'OrangeJuice', fontSize: '3.1rem' }}
+            style={{ fontFamily: 'OrangeJuice', fontSize: 'clamp(1.8rem, 5vw, 3.2rem)' }}
           >
             JudgeTheBeer
           </span>

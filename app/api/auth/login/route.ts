@@ -4,11 +4,11 @@ import { verifyPassword } from '@/lib/password'
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json()
+    const { username, password } = await request.json()
 
-    if (!email || !password) {
+    if (!username || !password) {
       return new Response(
-        JSON.stringify({ success: false, error: '请输入邮箱和密码' }),
+        JSON.stringify({ success: false, error: '请输入用户名和密码' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       )
     }
@@ -33,8 +33,8 @@ export async function POST(request: NextRequest) {
 
     // 查询用户
     const result = await db
-      .prepare('SELECT * FROM User WHERE email = ?')
-      .bind(email)
+      .prepare('SELECT * FROM User WHERE username = ?')
+      .bind(username)
       .first()
 
     if (!result) {
