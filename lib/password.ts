@@ -7,11 +7,6 @@ function generateSalt(): string {
   return Array.from(array, b => b.toString(16).padStart(2, '0')).join('')
 }
 
-// 将字符串转为 ArrayBuffer
-function stringToBuffer(str: string): ArrayBuffer {
-  return new TextEncoder().encode(str)
-}
-
 // 将 ArrayBuffer 转为十六进制字符串
 function bufferToHex(buffer: ArrayBuffer): string {
   return Array.from(new Uint8Array(buffer), b => b.toString(16).padStart(2, '0')).join('')
@@ -19,9 +14,11 @@ function bufferToHex(buffer: ArrayBuffer): string {
 
 // 使用 PBKDF2 哈希密码
 async function pbkdf2Hash(password: string, salt: string): Promise<string> {
+  const encoder = new TextEncoder()
+  
   const keyMaterial = await crypto.subtle.importKey(
     'raw',
-    stringToBuffer(password),
+    encoder.encode(password) as unknown as BufferSource,
     'PBKDF2',
     false,
     ['deriveBits']
@@ -30,7 +27,7 @@ async function pbkdf2Hash(password: string, salt: string): Promise<string> {
   const derivedBits = await crypto.subtle.deriveBits(
     {
       name: 'PBKDF2',
-      salt: stringToBuffer(salt),
+      salt: encoder.encode(salt) as unknown as BufferSource,
       iterations: 100000,
       hash: 'SHA-256',
     },
