@@ -56,7 +56,7 @@ export function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href={user?.role === "admin" ? "/admin" : "/"} className="flex items-center">
           <span 
             className="text-amber-400"
             style={{ fontFamily: 'OrangeJuice', fontSize: 'clamp(1.8rem, 5vw, 3.2rem)' }}
