@@ -22,16 +22,29 @@ export function Navbar() {
 
   useEffect(() => {
     // 检查登录状态
-    const stored = localStorage.getItem("user");
-    if (stored) {
-      Promise.resolve().then(() => setUser(JSON.parse(stored)));
-    }
+    const checkUser = () => {
+      const stored = localStorage.getItem("user");
+      if (stored) {
+        setUser(JSON.parse(stored));
+      } else {
+        setUser(null);
+      }
+    };
+
+    checkUser();
+
+    // 监听登录状态变化
+    window.addEventListener("userChanged", checkUser);
+    return () => {
+      window.removeEventListener("userChanged", checkUser);
+    };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
     setOpen(false);
+    window.dispatchEvent(new Event("userChanged"));
     router.push("/");
   };
 

@@ -63,6 +63,9 @@ export default function LoginPage() {
 
       // 登录成功，保存用户信息到 localStorage
       localStorage.setItem("user", JSON.stringify(data.data));
+      
+      // 触发自定义事件通知 Navbar 更新
+      window.dispatchEvent(new Event("userChanged"));
 
       // 根据角色跳转
       if (data.data.role === "admin") {
