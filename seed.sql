@@ -1,3 +1,5 @@
+-- User数据在最后
+
 -- 清空现有数据
 DELETE FROM Flavor;
 
@@ -301,3 +303,18 @@ INSERT INTO Flavor (id, name, nameEn, category, subCategory, type, description) 
 ('ch008', '石油/柴油（Petroleum/Diesel）', 'Petroleum/Diesel', '香气（Aroma）', '化学（Chemical）', 'bad', '煤油味'),
 ('ch009', '溶剂（Solvent）', 'Solvent', '香气（Aroma）', '化学（Chemical）', 'bad', '来源：乙酸乙酯'),
 ('ch010', '醋（Vinegar）', 'Vinegar', '香气（Aroma）', '化学（Chemical）', 'bad', '来源：醋酸');
+
+-- 用户表
+CREATE TABLE IF NOT EXISTS User (
+  id TEXT PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  username TEXT NOT NULL,
+  password TEXT NOT NULL,
+  role TEXT DEFAULT 'user',
+  createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 创建管理员账号
+INSERT INTO User (id, email, username, password, role) VALUES 
+('admin1', 'admin@judgethebeer.com', 'Admin', 'admin123', 'admin');
